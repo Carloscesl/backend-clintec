@@ -2,11 +2,14 @@ package com.terreneitors.backendclintec.auth.application.service;
 
 import com.terreneitors.backendclintec.auth.application.port.in.LoginUseCase;
 import com.terreneitors.backendclintec.auth.domain.AuthUsuario;
+import com.terreneitors.backendclintec.auth.infrastructure.dto.TokenResponse;
 import com.terreneitors.backendclintec.security.JwtService;
 import com.terreneitors.backendclintec.usuarios.application.port.out.UsuarioRepositoryPort;
 import com.terreneitors.backendclintec.usuarios.domain.Usuario;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LoginService implements LoginUseCase {
@@ -24,7 +27,7 @@ public class LoginService implements LoginUseCase {
     }
 
     @Override
-    public String login(String email, String password) {
+    public TokenResponse login(String email, String password) {
 
         Usuario usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -37,6 +40,17 @@ public class LoginService implements LoginUseCase {
             throw new RuntimeException("Contraseña incorrecta");
         }
 
-        return jwtService.generateToken(usuario);
+        String jwtToken = jwtService.generateToken(usuario);
+
+        List<String> rol = List.of(usuario.getRol().name());
+
+
+        return new TokenResponse(
+                usuario.getId(),
+                usuario.getNombreUser(),
+                usuario.getEmail(),
+                jwtToken,
+                rol
+        );
     }
 }
