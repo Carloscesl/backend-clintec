@@ -2,6 +2,8 @@ package com.terreneitors.backendclintec.auth.application.service;
 
 import com.terreneitors.backendclintec.auth.application.port.in.RegisterUseCase;
 import com.terreneitors.backendclintec.auth.domain.AuthUsuario;
+import com.terreneitors.backendclintec.auth.infrastructure.dto.TokenResponse;
+import com.terreneitors.backendclintec.security.JwtService;
 import com.terreneitors.backendclintec.usuarios.application.port.out.UsuarioRepositoryPort;
 import com.terreneitors.backendclintec.usuarios.domain.Rol;
 import com.terreneitors.backendclintec.usuarios.domain.Usuario;
@@ -9,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class RegisterService implements RegisterUseCase {
@@ -16,15 +19,17 @@ public class RegisterService implements RegisterUseCase {
 
     private final UsuarioRepositoryPort usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     public RegisterService(UsuarioRepositoryPort usuarioRepository,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     @Override
-    public String register(String nombreUser, String email, String password) {
+    public TokenResponse register(String nombreUser, String email, String password) {
 
         usuarioRepository.findByEmail(email).ifPresent(u -> {
             throw new RuntimeException("Usuario ya existe");
@@ -40,6 +45,14 @@ public class RegisterService implements RegisterUseCase {
 
         usuarioRepository.save(usuario);
 
-        return "Usuario registrado correctamente";
+        String jwtToken = jwtService.generateToken(usuario);
+
+        return new TokenResponse(
+                usuario.getId(),
+                usuario.getNombreUser(),
+                usuario.getEmail(),
+                jwtToken,
+                List.of(usuario.getRol().name())
+        );
     }
 }

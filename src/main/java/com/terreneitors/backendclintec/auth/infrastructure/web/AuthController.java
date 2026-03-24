@@ -4,10 +4,14 @@ import com.terreneitors.backendclintec.auth.application.port.in.LoginUseCase;
 import com.terreneitors.backendclintec.auth.application.port.in.RegisterUseCase;
 import com.terreneitors.backendclintec.auth.infrastructure.dto.LoginRequest;
 import com.terreneitors.backendclintec.auth.infrastructure.dto.RegisterRequest;
+import com.terreneitors.backendclintec.auth.infrastructure.dto.TokenResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
 
     private final LoginUseCase loginUseCase;
@@ -19,16 +23,19 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
-        return loginUseCase.login(request.email(), request.password());
+    public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) {
+        TokenResponse response = loginUseCase.login(request.email(), request.password());
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request) {
-        return registerUseCase.register(
+    public ResponseEntity<TokenResponse> register(@RequestBody RegisterRequest request) {
+        TokenResponse response = registerUseCase.register(
                 request.nombreUser(),
                 request.email(),
                 request.password()
         );
+        return new ResponseEntity<>(response, HttpStatus.CREATED) ;
     }
 }
