@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,12 +23,14 @@ public class ClienteController {
     private final ClientePersistenceMapper mapper;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
     public ResponseEntity<List<ClienteResponseDTO>> listar(){
         List<ClienteResponseDTO> clientes = clienteCrudService.findAll().stream().map(mapper::toDTO).toList();
         return ResponseEntity.ok(clientes);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
     public ResponseEntity<ClienteResponseDTO> buscarPorId(@PathVariable Long id){
         return clienteCrudService.buscarPorId(id)
                 .map(u-> mapper.toDTO(u))
@@ -35,6 +38,7 @@ public class ClienteController {
                 .orElse(ResponseEntity.notFound().build());
     }
     @GetMapping("/email/{email}")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
     public ResponseEntity<ClienteResponseDTO> buscarPorEmail(@PathVariable String email){
         return clienteCrudService.buscarPorEmail(email)
                 .map(u-> mapper.toDTO(u))
@@ -43,12 +47,14 @@ public class ClienteController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
     public ResponseEntity<ClienteResponseDTO> crear(@Valid @RequestBody ClienteRequestDTO dto){
         Cliente creado = clienteCrudService.crearCliente(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toDTO(creado));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
     public ResponseEntity<ClienteResponseDTO> actualizar(@PathVariable Long id, @Valid @RequestBody ClienteRequestDTO dto){
         Cliente actualizado = clienteCrudService.actualizarCliente(id, dto);
         return ResponseEntity.ok(mapper.toDTO(actualizado));

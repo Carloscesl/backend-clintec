@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,12 +24,14 @@ public class UsuarioController {
     private final UsuarioPersistenceMapper mapper;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<UsuarioResponseDTO>> listar(){
         List<UsuarioResponseDTO> usuarios = userCrudService.findAll().stream().map(mapper::toDTO).toList();
         return ResponseEntity.ok(usuarios);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UsuarioResponseDTO> buscarPorId(@PathVariable Long id) {
         return userCrudService.buscarPorId(id)
                 .map(u -> mapper.toDTO(u))
@@ -36,6 +39,7 @@ public class UsuarioController {
                 .orElse(ResponseEntity.notFound().build());
     }
     @GetMapping("/{email}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UsuarioResponseDTO> buscarPorEmail(@PathVariable String email) {
         return userCrudService.buscarPorEmail(email)
                 .map(u -> mapper.toDTO(u))
@@ -44,24 +48,28 @@ public class UsuarioController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UsuarioResponseDTO> crear(@Valid @RequestBody UsuarioRequestDTO dto) {
         Usuario creado = userCrudService.crearUsuario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toDTO(creado));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UsuarioResponseDTO> actualizar(@PathVariable Long id, @Valid @RequestBody UsuarioRequestDTO dto) {
         Usuario actualizado = userCrudService.actualizarUsuario(id, dto);
         return ResponseEntity.ok(mapper.toDTO(actualizado));
     }
 
     @PatchMapping("/{email}/desactivar")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<Void> desactivar(@PathVariable String email) {
         userCrudService.desactivarUsuario(email);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{email}/activar")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<Void> activar(@PathVariable String email) {
         userCrudService.activarUsuario(email);
         return ResponseEntity.noContent().build();
