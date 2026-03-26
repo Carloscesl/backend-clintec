@@ -25,6 +25,10 @@ public class UsuarioRepositoryAdapter implements UsuarioRepositoryPort {
         return springUsuarioRepository.findByEmail(email).map(mapper::toDomain);
     }
 
+    public Optional<Usuario> findById(Long id) {
+        return springUsuarioRepository.findById(id).map(mapper::toDomain);
+    }
+
     @Override
     public Usuario save(Usuario usuario) {
         UsuarioEntity entity = mapper.toEntity(usuario);
@@ -39,4 +43,5 @@ public class UsuarioRepositoryAdapter implements UsuarioRepositoryPort {
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
+
 }

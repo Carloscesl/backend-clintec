@@ -1,12 +1,14 @@
 package com.terreneitors.backendclintec.usuarios.infrastructure.persistence.mapper;
 
 import com.terreneitors.backendclintec.usuarios.domain.Usuario;
+import com.terreneitors.backendclintec.usuarios.infrastructure.dto.UsuarioResponseDTO;
 import com.terreneitors.backendclintec.usuarios.infrastructure.persistence.UsuarioEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UsuarioPersistenceMapper {
     public Usuario toDomain(UsuarioEntity entity) {
+        if (entity == null) return null;
         Usuario usuario = new Usuario();
         usuario.setId(entity.getId());
         usuario.setNombreUser(entity.getNombreUser());
@@ -19,6 +21,7 @@ public class UsuarioPersistenceMapper {
     }
 
     public UsuarioEntity toEntity(Usuario usuario) {
+        if (usuario == null) return null;
         UsuarioEntity entity = new UsuarioEntity();
         entity.setId(usuario.getId());
         entity.setNombreUser(usuario.getNombreUser());
@@ -28,5 +31,17 @@ public class UsuarioPersistenceMapper {
         entity.setActivo(usuario.getActivo());
         entity.setFechaCreacion(usuario.getFechaCreacion());
         return entity;
+    }
+
+    public UsuarioResponseDTO toDTO(Usuario u) {
+        if (u == null) return null;
+
+        return new UsuarioResponseDTO(
+                u.getId(),
+                u.getNombreUser(),
+                u.getEmail(),
+                u.getRol(),
+                u.getActivo()
+        );
     }
 }
