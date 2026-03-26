@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface UsuarioCrudUseCase {
     List<Usuario> findAll();
     Optional<Usuario> buscarPorId(Long id);
-    Optional<Usuario> obtenerUsuario(String email);
+    Optional<Usuario> buscarPorEmail(String email);
 
     Usuario crearUsuario (UsuarioRequestDTO usuario);
 

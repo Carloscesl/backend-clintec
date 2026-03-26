@@ -37,7 +37,7 @@ public class LoginService implements LoginUseCase {
         }
 
         if (!passwordEncoder.matches(password, usuario.getPassword())) {
-            throw new RuntimeException("Contraseña incorrecta");
+            throw new RuntimeException("Contraseña o correo incorrecta");
         }
 
         String jwtToken = jwtService.generateToken(usuario);

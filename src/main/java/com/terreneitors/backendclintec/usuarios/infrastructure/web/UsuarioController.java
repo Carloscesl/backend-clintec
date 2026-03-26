@@ -35,6 +35,13 @@ public class UsuarioController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    @GetMapping("/{email}")
+    public ResponseEntity<UsuarioResponseDTO> buscarPorEmail(@PathVariable String email) {
+        return userCrudService.buscarPorEmail(email)
+                .map(u -> mapper.toDTO(u))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     @PostMapping
     public ResponseEntity<UsuarioResponseDTO> crear(@Valid @RequestBody UsuarioRequestDTO dto) {

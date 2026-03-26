@@ -30,8 +30,9 @@ public class UserCrudService implements UsuarioCrudUseCase {
     public Optional<Usuario> buscarPorId(Long id) {
         return usuarioRepository.findById(id);
     }
+
     @Override
-    public Optional<Usuario> obtenerUsuario(String email) {
+    public Optional<Usuario> buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
 
