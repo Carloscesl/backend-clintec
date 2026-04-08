@@ -30,7 +30,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarios);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UsuarioResponseDTO> buscarPorId(@PathVariable Long id) {
         return userCrudService.buscarPorId(id)
@@ -38,7 +38,7 @@ public class UsuarioController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UsuarioResponseDTO> buscarPorEmail(@PathVariable String email) {
         return userCrudService.buscarPorEmail(email)
