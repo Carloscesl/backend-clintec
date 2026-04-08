@@ -4,6 +4,7 @@ import com.terreneitors.backendclintec.usuarios.application.service.UserCrudServ
 import com.terreneitors.backendclintec.usuarios.domain.Usuario;
 import com.terreneitors.backendclintec.usuarios.infrastructure.dto.UsuarioRequestDTO;
 import com.terreneitors.backendclintec.usuarios.infrastructure.dto.UsuarioResponseDTO;
+import com.terreneitors.backendclintec.usuarios.infrastructure.dto.UsuarioUpdateDTO;
 import com.terreneitors.backendclintec.usuarios.infrastructure.persistence.mapper.UsuarioPersistenceMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -56,7 +57,7 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
-    public ResponseEntity<UsuarioResponseDTO> actualizar(@PathVariable Long id, @Valid @RequestBody UsuarioRequestDTO dto) {
+    public ResponseEntity<UsuarioResponseDTO> actualizar(@PathVariable Long id, @Valid @RequestBody UsuarioUpdateDTO dto) {
         Usuario actualizado = userCrudService.actualizarUsuario(id, dto);
         return ResponseEntity.ok(mapper.toDTO(actualizado));
     }

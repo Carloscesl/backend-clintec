@@ -5,6 +5,7 @@ import com.terreneitors.backendclintec.usuarios.application.port.in.UsuarioCrudU
 import com.terreneitors.backendclintec.usuarios.application.port.out.UsuarioRepositoryPort;
 import com.terreneitors.backendclintec.usuarios.domain.Usuario;
 import com.terreneitors.backendclintec.usuarios.infrastructure.dto.UsuarioRequestDTO;
+import com.terreneitors.backendclintec.usuarios.infrastructure.dto.UsuarioUpdateDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +56,7 @@ public class UserCrudService implements UsuarioCrudUseCase {
 
 
     @Override
-    public Usuario actualizarUsuario(Long id, UsuarioRequestDTO dto) {
+    public Usuario actualizarUsuario(Long id, UsuarioUpdateDTO dto) {
         return usuarioRepository.findById(id).map(u -> {
             u.setNombreUser(dto.nombre());
             u.setEmail(dto.email());

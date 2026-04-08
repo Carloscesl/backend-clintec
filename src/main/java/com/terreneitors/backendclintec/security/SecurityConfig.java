@@ -53,7 +53,7 @@ public class SecurityConfig {
         // Permitir el origen de tu Angular
         configuration.setAllowedOrigins(java.util.List.of("http://localhost:4200"));
         // Permitir los métodos comunes
-        configuration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         // Permitir headers necesarios para el JWT y el contenido
         configuration.setAllowedHeaders(java.util.List.of("Authorization", "Content-Type", "X-Requested-With"));
         // Permitir enviar credenciales si fuera necesario
