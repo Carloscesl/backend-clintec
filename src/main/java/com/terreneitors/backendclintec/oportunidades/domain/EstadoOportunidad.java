@@ -1,5 +1,8 @@
 package com.terreneitors.backendclintec.oportunidades.domain;
 
 public enum EstadoOportunidad {
-    PENDIENTE
+    ACTIVA,
+    INACTIVA,
+    GANADA,
+    PERDIDA
 }

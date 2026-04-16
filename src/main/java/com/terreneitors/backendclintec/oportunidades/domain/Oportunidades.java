@@ -1,6 +1,7 @@
 package com.terreneitors.backendclintec.oportunidades.domain;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Oportunidades {
@@ -9,8 +10,11 @@ public class Oportunidades {
     private Long asesorId;
     private String descripcion;
     private BigDecimal valorEstimado;
+    private Integer probabilidad;
     private EstadoOportunidad estado;
+    private EtapaOportunidad etapaOportunidad;
     private LocalDateTime fechaCreacion;
+    private LocalDate fechaEstimadaCierre;
 
     public Oportunidades() {
     }
@@ -69,5 +73,29 @@ public class Oportunidades {
 
     public void setFechaCreacion(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
+    }
+
+    public Integer getProbabilidad() {
+        return probabilidad;
+    }
+
+    public void setProbabilidad(Integer probabilidad) {
+        this.probabilidad = probabilidad;
+    }
+
+    public EtapaOportunidad getEtapaOportunidad() {
+        return etapaOportunidad;
+    }
+
+    public void setEtapaOportunidad(EtapaOportunidad etapaOportunidad) {
+        this.etapaOportunidad = etapaOportunidad;
+    }
+
+    public LocalDate getFechaEstimadaCierre() {
+        return fechaEstimadaCierre;
+    }
+
+    public void setFechaEstimadaCierre(LocalDate fechaEstimadaCierre) {
+        this.fechaEstimadaCierre = fechaEstimadaCierre;
     }
 }
