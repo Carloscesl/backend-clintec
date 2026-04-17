@@ -1,17 +1,16 @@
 package com.terreneitors.backendclintec.oportunidades.application.port.out;
 
-import com.terreneitors.backendclintec.oportunidades.domain.Oportunidades;
-import com.terreneitors.backendclintec.oportunidades.infrastructure.dto.OportunidadesRequestDTO;
+import com.terreneitors.backendclintec.oportunidades.domain.Oportunidad;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface OportunidadesRespositoryPort {
-    List<Oportunidades> findAll();
+    List<Oportunidad> findAll();
 
-    Optional<Oportunidades> findById(Long id);
-    Optional<Oportunidades> findByAsesor(Long id);
-    Optional<Oportunidades> findByIdCliente(Long id);
+    Optional<Oportunidad> findById(Long id);
+    List<Oportunidad> findByAsesor(Long id);
+    List<Oportunidad> findByIdCliente(Long id);
 
-    Oportunidades save (Oportunidades oportunidad);
+    Oportunidad save (Oportunidad oportunidad);
 }

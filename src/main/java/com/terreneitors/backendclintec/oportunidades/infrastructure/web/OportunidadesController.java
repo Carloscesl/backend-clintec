@@ -1,9 +1,10 @@
 package com.terreneitors.backendclintec.oportunidades.infrastructure.web;
 
 import com.terreneitors.backendclintec.oportunidades.application.service.OportunidadesCrudService;
-import com.terreneitors.backendclintec.oportunidades.domain.Oportunidades;
-import com.terreneitors.backendclintec.oportunidades.infrastructure.dto.OportunidadesRequestDTO;
-import com.terreneitors.backendclintec.oportunidades.infrastructure.dto.OportunidadesResponseDTO;
+import com.terreneitors.backendclintec.oportunidades.domain.EtapaOportunidad;
+import com.terreneitors.backendclintec.oportunidades.domain.Oportunidad;
+import com.terreneitors.backendclintec.oportunidades.infrastructure.dto.OportunidadRequestDTO;
+import com.terreneitors.backendclintec.oportunidades.infrastructure.dto.OportunidadResponseDTO;
 import com.terreneitors.backendclintec.oportunidades.infrastructure.persistence.mapper.OportunidadesPersistenceMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,14 +25,14 @@ public class OportunidadesController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
-    public ResponseEntity<List<OportunidadesResponseDTO>> listar(){
-        List<OportunidadesResponseDTO> oporunidades = oportunidadesCrudService.findAll().stream().map(mapper::toDTO).toList();
+    public ResponseEntity<List<OportunidadResponseDTO>> listar(){
+        List<OportunidadResponseDTO> oporunidades = oportunidadesCrudService.findAll().stream().map(mapper::toDTO).toList();
         return ResponseEntity.ok(oporunidades);
     }
 
     @GetMapping("/id/{id}")
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
-    public ResponseEntity<OportunidadesResponseDTO> buscarPorId(@PathVariable Long id){
+    public ResponseEntity<OportunidadResponseDTO> buscarPorId(@PathVariable Long id){
         return oportunidadesCrudService.buscarPorId(id)
                 .map(u-> mapper.toDTO(u))
                 .map(ResponseEntity::ok)
@@ -39,33 +40,55 @@ public class OportunidadesController {
     }
     @GetMapping("/idasesor/{id}")
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
-    public ResponseEntity<OportunidadesResponseDTO> buscarPorIdAsesor(@PathVariable Long id){
-        return oportunidadesCrudService.buscarPorIdAsesor(id)
-                .map(u-> mapper.toDTO(u))
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<List<OportunidadResponseDTO>> buscarPorIdAsesor(@PathVariable Long id){
+        return ResponseEntity.ok(oportunidadesCrudService.buscarPorIdAsesor(id).stream().map(mapper::toDTO).toList());
     }
     @GetMapping("/idcliente/{id}")
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
-    public ResponseEntity<OportunidadesResponseDTO> buscarPorIdCliente(@PathVariable Long id){
-        return oportunidadesCrudService.buscarPorIdCliente(id)
-                .map(u-> mapper.toDTO(u))
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<List<OportunidadResponseDTO>> buscarPorIdCliente(@PathVariable Long id){
+        return ResponseEntity.ok(oportunidadesCrudService.buscarPorIdAsesor(id).stream().map(mapper::toDTO).toList());
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
-    public ResponseEntity<OportunidadesResponseDTO> crear (@Valid @RequestBody OportunidadesRequestDTO dto){
-        Oportunidades oportunidad = oportunidadesCrudService.crearOportunidades(dto);
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR')")
+    public ResponseEntity<OportunidadResponseDTO> crear (@Valid @RequestBody OportunidadRequestDTO dto){
+        Oportunidad oportunidad = oportunidadesCrudService.crearOportunidades(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toDTO(oportunidad));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
-    public ResponseEntity<OportunidadesResponseDTO> actualizar(@PathVariable Long id, @Valid @RequestBody OportunidadesRequestDTO dto){
-        Oportunidades actualizado = oportunidadesCrudService.actulizarOportunidades(id, dto);
+    public ResponseEntity<OportunidadResponseDTO> actualizar(@PathVariable Long id, @Valid @RequestBody OportunidadRequestDTO dto){
+        Oportunidad actualizado = oportunidadesCrudService.actulizarOportunidades(id, dto);
         return ResponseEntity.ok(mapper.toDTO(actualizado));
+    }
+
+    @PatchMapping("/{id}/etapa")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','ASESOR')")
+    public ResponseEntity<OportunidadResponseDTO> cambiarEtapa(
+            @PathVariable Long id, @RequestParam EtapaOportunidad etapa) {
+        return ResponseEntity.ok(mapper.toDTO(oportunidadesCrudService.cambiarEtapa(id, etapa)));
+    }
+
+    @PatchMapping("/{id}/probabilidad")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','ASESOR')")
+    public ResponseEntity<OportunidadResponseDTO> ajustarProbabilidad(
+            @PathVariable Long id, @RequestParam int probabilidad) {
+        return ResponseEntity.ok(mapper.toDTO(oportunidadesCrudService.ajustarProbabilidad(id, probabilidad)));
+    }
+
+    @PatchMapping("/{id}/ganar")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
+    public ResponseEntity<Void> cerrarGanada(@PathVariable Long id) {
+        oportunidadesCrudService.cerrarComoGanada(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}/perder")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
+    public ResponseEntity<Void> cerrarPerdida(@PathVariable Long id) {
+        oportunidadesCrudService.cerrarComoPerdida(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

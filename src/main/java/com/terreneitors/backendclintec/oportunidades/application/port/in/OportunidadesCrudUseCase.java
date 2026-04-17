@@ -1,19 +1,23 @@
 package com.terreneitors.backendclintec.oportunidades.application.port.in;
 
-import com.terreneitors.backendclintec.oportunidades.domain.Oportunidades;
-import com.terreneitors.backendclintec.oportunidades.infrastructure.dto.OportunidadesRequestDTO;
+import com.terreneitors.backendclintec.oportunidades.domain.EtapaOportunidad;
+import com.terreneitors.backendclintec.oportunidades.domain.Oportunidad;
+import com.terreneitors.backendclintec.oportunidades.infrastructure.dto.OportunidadRequestDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface OportunidadesCrudUseCase {
-    List<Oportunidades> findAll();
+    List<Oportunidad> findAll();
 
-    Optional<Oportunidades> buscarPorId(Long id);
-    Optional<Oportunidades> buscarPorIdAsesor(Long id);
-    Optional<Oportunidades> buscarPorIdCliente(Long id);
+    Optional<Oportunidad> buscarPorId(Long id);
+    List<Oportunidad> buscarPorIdAsesor(Long id);
+    List<Oportunidad> buscarPorIdCliente(Long id);
 
-    Oportunidades crearOportunidades (OportunidadesRequestDTO oportunidad);
-
-    Oportunidades actulizarOportunidades (Long id,OportunidadesRequestDTO oportunidad);
+    Oportunidad crearOportunidades (OportunidadRequestDTO oportunidad);
+    Oportunidad actulizarOportunidades (Long id, OportunidadRequestDTO oportunidad);
+    Oportunidad cambiarEtapa(Long id, EtapaOportunidad nuevaEtapa);
+    Oportunidad ajustarProbabilidad(Long id, int probabilidad);
+    void  cerrarComoGanada(Long id);
+    void  cerrarComoPerdida(Long id);
 }

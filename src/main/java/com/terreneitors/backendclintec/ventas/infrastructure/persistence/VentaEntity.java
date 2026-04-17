@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ventaEntity {
+public class VentaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,4 +35,15 @@ public class ventaEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "metodoPago")
     private MetodoPago metodoPago;
+
+    @PrePersist
+    void prePersist() {
+        this.fechaVenta         = LocalDateTime.now();
+        this.fechaActualizacion = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    void preUpdate() {
+        this.fechaActualizacion = LocalDateTime.now();
+    }
 }

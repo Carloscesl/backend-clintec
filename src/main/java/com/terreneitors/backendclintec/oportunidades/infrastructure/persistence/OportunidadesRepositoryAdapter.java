@@ -1,7 +1,7 @@
 package com.terreneitors.backendclintec.oportunidades.infrastructure.persistence;
 
 import com.terreneitors.backendclintec.oportunidades.application.port.out.OportunidadesRespositoryPort;
-import com.terreneitors.backendclintec.oportunidades.domain.Oportunidades;
+import com.terreneitors.backendclintec.oportunidades.domain.Oportunidad;
 import com.terreneitors.backendclintec.oportunidades.infrastructure.persistence.mapper.OportunidadesPersistenceMapper;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +20,7 @@ public class OportunidadesRepositoryAdapter implements OportunidadesRespositoryP
     }
 
     @Override
-    public List<Oportunidades> findAll() {
+    public List<Oportunidad> findAll() {
         return springOportunidadesRepository.findAll()
                 .stream()
                 .map(mapper::toDomain)
@@ -28,24 +28,24 @@ public class OportunidadesRepositoryAdapter implements OportunidadesRespositoryP
     }
 
     @Override
-    public Optional<Oportunidades> findById(Long id) {
+    public Optional<Oportunidad> findById(Long id) {
         return springOportunidadesRepository.findById(id).map(mapper::toDomain);
     }
 
     @Override
-    public Optional<Oportunidades> findByAsesor(Long id) {
-        return springOportunidadesRepository.findByAsesorId(id).map(mapper::toDomain);
+    public List<Oportunidad> findByAsesor(Long id) {
+        return springOportunidadesRepository.findByAsesorId(id).stream().map(mapper::toDomain).toList();
     }
 
     @Override
-    public Optional<Oportunidades> findByIdCliente(Long id) {
-        return springOportunidadesRepository.findByClienteId(id).map(mapper::toDomain);
+    public List<Oportunidad> findByIdCliente(Long id) {
+        return springOportunidadesRepository.findByClienteId(id).stream().map(mapper::toDomain).toList();
     }
 
     @Override
-    public Oportunidades save(Oportunidades oportunidad) {
-        OportunidadesEntity entity = mapper.toEntity(oportunidad);
-        OportunidadesEntity saved = springOportunidadesRepository.save(entity);
+    public Oportunidad save(Oportunidad oportunidad) {
+        OportunidadEntity entity = mapper.toEntity(oportunidad);
+        OportunidadEntity saved = springOportunidadesRepository.save(entity);
         return mapper.toDomain(saved);
     }
 }

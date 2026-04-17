@@ -3,7 +3,7 @@ package com.terreneitors.backendclintec.ventas.domain;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class ventas {
+public class Venta {
     private Long idVenta;
     private Long idOportunidad;
     private BigDecimal valorVenta;
@@ -13,7 +13,12 @@ public class ventas {
     private String notas;
     private MetodoPago metodoPago;
 
-    public ventas() {
+    public Venta() {
+    }
+
+    private void validarValor(BigDecimal valor) {
+        if (valor == null || valor.compareTo(BigDecimal.ZERO) <= 0)
+            throw new IllegalArgumentException("El valor de la venta debe ser mayor a cero.");
     }
 
     public Long getIdVenta() {

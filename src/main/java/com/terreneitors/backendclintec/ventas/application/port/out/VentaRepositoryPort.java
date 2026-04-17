@@ -1,16 +1,14 @@
 package com.terreneitors.backendclintec.ventas.application.port.out;
 
-import com.terreneitors.backendclintec.ventas.application.service.VentaCrudService;
-import com.terreneitors.backendclintec.ventas.domain.ventas;
-import com.terreneitors.backendclintec.ventas.infrastructure.dto.VentaRequestDTO;
+import com.terreneitors.backendclintec.ventas.domain.Venta;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface VentaRepositoryPort {
-    List<ventas> findAll();
-    Optional<ventas> findId(Long idVentas);
-    List<ventas> findIdAsesor(Long idAsesor);
-    List<ventas> findIdOportunidad(Long idOportunidad);
-    ventas saveVenta(ventas venta);
+    List<Venta> findAll();
+    Optional<Venta> findId(Long idVentas);
+    List<Venta> findIdAsesor(Long idAsesor);
+    List<Venta> findIdOportunidad(Long idOportunidad);
+    Venta saveVenta(Venta venta);
 }

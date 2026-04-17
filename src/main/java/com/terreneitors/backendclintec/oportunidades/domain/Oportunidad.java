@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Oportunidades {
+public class Oportunidad {
     private Long idOportunidades;
     private Long clienteId;
     private Long asesorId;
@@ -15,8 +15,9 @@ public class Oportunidades {
     private EtapaOportunidad etapaOportunidad;
     private LocalDateTime fechaCreacion;
     private LocalDate fechaEstimadaCierre;
+    private LocalDateTime fechaActualizacion;
 
-    public Oportunidades() {
+    public Oportunidad() {
     }
 
     public Long getIdOportunidades() {
@@ -80,6 +81,12 @@ public class Oportunidades {
     }
 
     public void setProbabilidad(Integer probabilidad) {
+        int min = this.etapaOportunidad.getMin();
+        int max = this.etapaOportunidad.getMax();
+        if (probabilidad < min || probabilidad > max)
+            throw new IllegalArgumentException(
+                    "Para la etapa " + this.etapaOportunidad +
+                            " la probabilidad debe estar entre " + min + "% y " + max + "%.");
         this.probabilidad = probabilidad;
     }
 
@@ -89,6 +96,7 @@ public class Oportunidades {
 
     public void setEtapaOportunidad(EtapaOportunidad etapaOportunidad) {
         this.etapaOportunidad = etapaOportunidad;
+        this.probabilidad = etapaOportunidad.getProbabilidadDefault();
     }
 
     public LocalDate getFechaEstimadaCierre() {
@@ -97,5 +105,29 @@ public class Oportunidades {
 
     public void setFechaEstimadaCierre(LocalDate fechaEstimadaCierre) {
         this.fechaEstimadaCierre = fechaEstimadaCierre;
+    }
+
+    public void cerrarComoGanada() {
+        this.etapaOportunidad        = EtapaOportunidad.CIERRE_GANADO;
+        this.estado       = EstadoOportunidad.GANADA;
+        this.probabilidad = 100;
+    }
+
+    public void cerrarComoPerdida() {
+        this.etapaOportunidad        = EtapaOportunidad.CIERRE_PERDIDO;
+        this.estado       = EstadoOportunidad.PERDIDA;
+        this.probabilidad = 0;
+    }
+
+    public boolean esPotencial() {
+        return this.estado == EstadoOportunidad.ACTIVA && this.probabilidad >= 50;
+    }
+
+    public LocalDateTime getFechaActualizacion() {
+        return fechaActualizacion;
+    }
+
+    public void setFechaActualizacion(LocalDateTime fechaActualizacion) {
+        this.fechaActualizacion = fechaActualizacion;
     }
 }

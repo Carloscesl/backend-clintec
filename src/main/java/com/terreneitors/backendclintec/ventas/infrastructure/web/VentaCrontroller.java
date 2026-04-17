@@ -3,7 +3,7 @@ package com.terreneitors.backendclintec.ventas.infrastructure.web;
 import com.terreneitors.backendclintec.ventas.application.port.in.ventasCrudUseCase;
 import com.terreneitors.backendclintec.ventas.infrastructure.dto.VentaRequestDTO;
 import com.terreneitors.backendclintec.ventas.infrastructure.dto.VentaResponseDTO;
-import com.terreneitors.backendclintec.ventas.infrastructure.persistence.mapper.VentaPersistenceMapper;
+import com.terreneitors.backendclintec.ventas.infrastructure.persistence.Mapper.VentaPersistenceMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,17 +18,18 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin("http://localhost:4200")
 public class VentaCrontroller {
+
     private final ventasCrudUseCase ventaCasosUso;
     private final VentaPersistenceMapper ventaMapper;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
     public ResponseEntity<List<VentaResponseDTO>> listarTodos(){
         return ResponseEntity.ok(ventaCasosUso.findAll().stream().map(ventaMapper::toDTO).toList());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
     public ResponseEntity<VentaResponseDTO> buscarId(@PathVariable Long id){
         return ventaCasosUso.findId(id)
                 .map(ventaMapper::toDTO)
@@ -37,25 +38,25 @@ public class VentaCrontroller {
     }
 
     @GetMapping("/buscarasesor/{id}")
-    @PreAuthorize("hasRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
     public ResponseEntity<List<VentaResponseDTO>> buscarAsesor(@PathVariable Long id){
         return ResponseEntity.ok(ventaCasosUso.findIdAsesor(id).stream().map(ventaMapper::toDTO).toList());
     }
 
     @GetMapping("/buscaroportunidad/{id}")
-    @PreAuthorize("hasRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
     public ResponseEntity<List<VentaResponseDTO>> buscarOportunidad(@PathVariable Long id){
         return ResponseEntity.ok(ventaCasosUso.findIdOportunidad(id).stream().map(ventaMapper::toDTO).toList());
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMINISTRADOR','GERENTE','ASESOR')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE','ASESOR')")
     public ResponseEntity<VentaResponseDTO> crearVenta(@Valid @RequestBody VentaRequestDTO ventaDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(ventaMapper.toDTO(ventaCasosUso.createVenta(ventaDTO)));
     }
 
     @PutMapping("/actualizarventa/{id}")
-    @PreAuthorize("hasRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
     public ResponseEntity<VentaResponseDTO> actualizarVenta(@PathVariable Long id, @Valid @RequestBody VentaRequestDTO ventaDTO){
         return ResponseEntity.ok(ventaMapper.toDTO(ventaCasosUso.updateVenta(id, ventaDTO)));
     }
