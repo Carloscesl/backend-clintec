@@ -33,12 +33,12 @@ public class VentaCrudService implements ventasCrudUseCase {
     }
 
     @Override
-    public Optional<ventas> findIdAsesor(Long idAsesor) {
+    public List<ventas> findIdAsesor(Long idAsesor) {
         return ventaRepositoryPort.findIdAsesor(idAsesor);
     }
 
     @Override
-    public Optional<ventas> findIdOportunidad(Long idOportunidad) {
+    public List<ventas> findIdOportunidad(Long idOportunidad) {
         return ventaRepositoryPort.findIdOportunidad(idOportunidad);
     }
 

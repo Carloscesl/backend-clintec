@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface VentaRepositoryPort {
     List<ventas> findAll();
     Optional<ventas> findId(Long idVentas);
-    Optional<ventas> findIdAsesor(Long idAsesor);
-    Optional<ventas> findIdOportunidad(Long idOportunidad);
+    List<ventas> findIdAsesor(Long idAsesor);
+    List<ventas> findIdOportunidad(Long idOportunidad);
     ventas saveVenta(ventas venta);
 }

@@ -38,20 +38,14 @@ public class VentaCrontroller {
 
     @GetMapping("/buscarasesor/{id}")
     @PreAuthorize("hasRole('ADMINISTRADOR','GERENTE')")
-    public ResponseEntity<VentaResponseDTO> buscarAsesor(@PathVariable Long id){
-        return ventaCasosUso.findIdAsesor(id)
-                .map(ventaMapper::toDTO)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<List<VentaResponseDTO>> buscarAsesor(@PathVariable Long id){
+        return ResponseEntity.ok(ventaCasosUso.findIdAsesor(id).stream().map(ventaMapper::toDTO).toList());
     }
 
     @GetMapping("/buscaroportunidad/{id}")
     @PreAuthorize("hasRole('ADMINISTRADOR','GERENTE')")
-    public ResponseEntity<VentaResponseDTO> buscarOportunidad(@PathVariable Long id){
-        return ventaCasosUso.findIdOportunidad(id)
-                .map(ventaMapper::toDTO)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<List<VentaResponseDTO>> buscarOportunidad(@PathVariable Long id){
+        return ResponseEntity.ok(ventaCasosUso.findIdOportunidad(id).stream().map(ventaMapper::toDTO).toList());
     }
 
     @PostMapping

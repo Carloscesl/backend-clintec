@@ -26,17 +26,17 @@ public class VentaRepositoryAdapter implements VentaRepositoryPort {
     }
 
     @Override
-    public Optional<ventas> findfIdAsesor(Long idAsesor) {
-        return ventaRepository.findByIdAsesor(idAsesor).map(ventaMapper::toDomain);
-    }
-
-    @Override
-    public Optional<ventas> findfIdOportunidad(Long idOportunidad) {
-        return ventaRepository.findByIdOportuniad(idOportunidad).map(ventaMapper::toDomain);
-    }
-
-    @Override
     public ventas saveVenta(ventas venta) {
         return ventaMapper.toDomain(ventaRepository.save(ventaMapper.toEntity(venta)));
+    }
+
+    @Override
+    public List<ventas> findIdAsesor(Long idAsesor) {
+        return ventaRepository.findByIdAsesor(idAsesor).stream().map(ventaMapper::toDomain).toList();
+    }
+
+    @Override
+    public List<ventas> findIdOportunidad(Long idOportunidad) {
+        return ventaRepository.findByIdOportuniad(idOportunidad).stream().map(ventaMapper::toDomain).toList();
     }
 }
