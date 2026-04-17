@@ -9,8 +9,8 @@ import java.util.Optional;
 public interface ventasCrudUseCase {
     List<ventas> findAll();
     Optional<ventas> findId(Long idVentas);
-    Optional<ventas> findfIdAsesor(Long idAsesor);
-    Optional<ventas> findfIdOportunidad(Long idOportunidad);
+    Optional<ventas> findIdAsesor(Long idAsesor);
+    Optional<ventas> findIdOportunidad(Long idOportunidad);
     ventas createVenta(VentaRequestDTO venta);
     ventas updateVenta(Long idVenta, VentaRequestDTO ventaUpdate);
 

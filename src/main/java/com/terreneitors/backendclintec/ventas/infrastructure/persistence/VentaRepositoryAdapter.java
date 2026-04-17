@@ -2,41 +2,41 @@ package com.terreneitors.backendclintec.ventas.infrastructure.persistence;
 
 import com.terreneitors.backendclintec.ventas.application.port.out.VentaRepositoryPort;
 import com.terreneitors.backendclintec.ventas.domain.ventas;
+import com.terreneitors.backendclintec.ventas.infrastructure.persistence.mapper.VentaPersistenceMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class VentaRepositoryAdapter implements VentaRepositoryPort {
     private final SpringVentaRepository ventaRepository;
-
-    public VentaRepositoryAdapter(SpringVentaRepository ventaRepository) {
-        this.ventaRepository = ventaRepository;
-    }
+    private final VentaPersistenceMapper ventaMapper;
 
     @Override
     public List<ventas> findAll() {
-        return List.of();
+        return ventaRepository.findAll().stream().map(ventaMapper::toDomain).toList();
     }
 
     @Override
     public Optional<ventas> findId(Long idVentas) {
-        return Optional.empty();
+        return ventaRepository.findById(idVentas).map(ventaMapper::toDomain);
     }
 
     @Override
     public Optional<ventas> findfIdAsesor(Long idAsesor) {
-        return Optional.empty();
+        return ventaRepository.findByIdAsesor(idAsesor).map(ventaMapper::toDomain);
     }
 
     @Override
     public Optional<ventas> findfIdOportunidad(Long idOportunidad) {
-        return Optional.empty();
+        return ventaRepository.findByIdOportuniad(idOportunidad).map(ventaMapper::toDomain);
     }
 
     @Override
     public ventas saveVenta(ventas venta) {
-        return null;
+        return ventaMapper.toDomain(ventaRepository.save(ventaMapper.toEntity(venta)));
     }
 }
