@@ -1,11 +1,11 @@
 package com.terreneitors.backendclintec.oportunidades.infrastructure.web;
 
-import com.terreneitors.backendclintec.oportunidades.application.service.OportunidadesCrudService;
+import com.terreneitors.backendclintec.oportunidades.application.service.OportunidadCrudService;
 import com.terreneitors.backendclintec.oportunidades.domain.EtapaOportunidad;
 import com.terreneitors.backendclintec.oportunidades.domain.Oportunidad;
 import com.terreneitors.backendclintec.oportunidades.infrastructure.dto.OportunidadRequestDTO;
 import com.terreneitors.backendclintec.oportunidades.infrastructure.dto.OportunidadResponseDTO;
-import com.terreneitors.backendclintec.oportunidades.infrastructure.persistence.mapper.OportunidadesPersistenceMapper;
+import com.terreneitors.backendclintec.oportunidades.infrastructure.persistence.mapper.OportunidadPersistenceMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,8 +20,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin("http://localhost:4200")
 public class OportunidadesController {
-    private final OportunidadesCrudService oportunidadesCrudService;
-    private final OportunidadesPersistenceMapper mapper;
+    private final OportunidadCrudService oportunidadesCrudService;
+    private final OportunidadPersistenceMapper mapper;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
@@ -46,7 +46,7 @@ public class OportunidadesController {
     @GetMapping("/idcliente/{id}")
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
     public ResponseEntity<List<OportunidadResponseDTO>> buscarPorIdCliente(@PathVariable Long id){
-        return ResponseEntity.ok(oportunidadesCrudService.buscarPorIdAsesor(id).stream().map(mapper::toDTO).toList());
+        return ResponseEntity.ok(oportunidadesCrudService.buscarPorIdCliente(id).stream().map(mapper::toDTO).toList());
     }
 
     @PostMapping

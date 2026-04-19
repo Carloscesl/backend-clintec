@@ -5,7 +5,7 @@ import com.terreneitors.backendclintec.oportunidades.domain.Oportunidad;
 import java.util.List;
 import java.util.Optional;
 
-public interface OportunidadesRespositoryPort {
+public interface OportunidadRespositoryPort {
     List<Oportunidad> findAll();
 
     Optional<Oportunidad> findById(Long id);

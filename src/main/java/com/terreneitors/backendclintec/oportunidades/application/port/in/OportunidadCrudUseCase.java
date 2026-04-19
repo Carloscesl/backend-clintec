@@ -7,7 +7,7 @@ import com.terreneitors.backendclintec.oportunidades.infrastructure.dto.Oportuni
 import java.util.List;
 import java.util.Optional;
 
-public interface OportunidadesCrudUseCase {
+public interface OportunidadCrudUseCase {
     List<Oportunidad> findAll();
 
     Optional<Oportunidad> buscarPorId(Long id);

@@ -6,10 +6,10 @@ import com.terreneitors.backendclintec.oportunidades.infrastructure.persistence.
 import org.springframework.stereotype.Component;
 
 @Component
-public class OportunidadesPersistenceMapper {
+public class OportunidadPersistenceMapper {
     public Oportunidad toDomain(OportunidadEntity entity){
         Oportunidad o = new Oportunidad();
-        o.setIdOportunidades(entity.getId());
+        o.setIdOportunidad(entity.getId());
         o.setClienteId(entity.getClienteId());
         o.setAsesorId(entity.getAsesorId());
         o.setDescripcion(entity.getDescripcion());
@@ -24,7 +24,7 @@ public class OportunidadesPersistenceMapper {
     }
     public OportunidadEntity toEntity(Oportunidad o){
         OportunidadEntity entity = new OportunidadEntity();
-        entity.setId(o.getIdOportunidades());
+        entity.setId(o.getIdOportunidad());
         entity.setClienteId(o.getClienteId());
         entity.setAsesorId(o.getAsesorId());
         entity.setDescripcion(o.getDescripcion());
@@ -39,7 +39,7 @@ public class OportunidadesPersistenceMapper {
     }
     public OportunidadResponseDTO toDTO(Oportunidad o) {
         return new OportunidadResponseDTO(
-                o.getIdOportunidades(),
+                o.getIdOportunidad(),
                 o.getClienteId(),
                 o.getAsesorId(),
                 o.getDescripcion(),

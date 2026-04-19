@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Oportunidad {
-    private Long idOportunidades;
+    private Long idOportunidad;
     private Long clienteId;
     private Long asesorId;
     private String descripcion;
@@ -20,12 +20,12 @@ public class Oportunidad {
     public Oportunidad() {
     }
 
-    public Long getIdOportunidades() {
-        return idOportunidades;
+    public Long getIdOportunidad() {
+        return idOportunidad;
     }
 
-    public void setIdOportunidades(Long idOportunidades) {
-        this.idOportunidades = idOportunidades;
+    public void setIdOportunidad(Long idOportunidad) {
+        this.idOportunidad = idOportunidad;
     }
 
     public Long getClienteId() {

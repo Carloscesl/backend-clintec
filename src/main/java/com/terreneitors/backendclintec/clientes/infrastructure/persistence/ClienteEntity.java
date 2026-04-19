@@ -37,4 +37,9 @@ public class ClienteEntity {
     @Column(name= "fechaResgitro")
     private LocalDateTime fechaRegistro;
 
+    @PrePersist
+    void prePersist() {
+        this.fechaRegistro = LocalDateTime.now();
+    }
+
 }

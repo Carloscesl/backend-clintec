@@ -1,8 +1,8 @@
 package com.terreneitors.backendclintec.oportunidades.infrastructure.persistence;
 
-import com.terreneitors.backendclintec.oportunidades.application.port.out.OportunidadesRespositoryPort;
+import com.terreneitors.backendclintec.oportunidades.application.port.out.OportunidadRespositoryPort;
 import com.terreneitors.backendclintec.oportunidades.domain.Oportunidad;
-import com.terreneitors.backendclintec.oportunidades.infrastructure.persistence.mapper.OportunidadesPersistenceMapper;
+import com.terreneitors.backendclintec.oportunidades.infrastructure.persistence.mapper.OportunidadPersistenceMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,11 +10,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public class OportunidadesRepositoryAdapter implements OportunidadesRespositoryPort {
+public class OportunidadRepositoryAdapter implements OportunidadRespositoryPort {
     private final SpringOportunidadesRepository springOportunidadesRepository;
-    private final OportunidadesPersistenceMapper mapper;
+    private final OportunidadPersistenceMapper mapper;
 
-    public OportunidadesRepositoryAdapter(SpringOportunidadesRepository springOportunidadesRepository, OportunidadesPersistenceMapper mapper) {
+    public OportunidadRepositoryAdapter(SpringOportunidadesRepository springOportunidadesRepository, OportunidadPersistenceMapper mapper) {
         this.springOportunidadesRepository = springOportunidadesRepository;
         this.mapper = mapper;
     }
