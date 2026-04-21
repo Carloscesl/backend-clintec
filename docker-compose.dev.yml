@@ -11,6 +11,7 @@ services:
       - "8080:8080"
     volumes:
       - ./src:/root/src
+      - ./logs:/root/logs
     depends_on:
       db-clintec:
         condition: service_healthy
