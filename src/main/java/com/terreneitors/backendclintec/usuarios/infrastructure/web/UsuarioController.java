@@ -4,11 +4,13 @@ import com.terreneitors.backendclintec.usuarios.application.service.UserCrudServ
 import com.terreneitors.backendclintec.usuarios.domain.Usuario;
 import com.terreneitors.backendclintec.usuarios.infrastructure.dto.UsuarioRequestDTO;
 import com.terreneitors.backendclintec.usuarios.infrastructure.dto.UsuarioResponseDTO;
+import com.terreneitors.backendclintec.usuarios.infrastructure.dto.UsuarioUpdateDTO;
 import com.terreneitors.backendclintec.usuarios.infrastructure.persistence.mapper.UsuarioPersistenceMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,38 +25,52 @@ public class UsuarioController {
     private final UsuarioPersistenceMapper mapper;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<UsuarioResponseDTO>> listar(){
         List<UsuarioResponseDTO> usuarios = userCrudService.findAll().stream().map(mapper::toDTO).toList();
         return ResponseEntity.ok(usuarios);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UsuarioResponseDTO> buscarPorId(@PathVariable Long id) {
         return userCrudService.buscarPorId(id)
                 .map(u -> mapper.toDTO(u))
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    @GetMapping("/email/{email}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    public ResponseEntity<UsuarioResponseDTO> buscarPorEmail(@PathVariable String email) {
+        return userCrudService.buscarPorEmail(email)
+                .map(u -> mapper.toDTO(u))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UsuarioResponseDTO> crear(@Valid @RequestBody UsuarioRequestDTO dto) {
         Usuario creado = userCrudService.crearUsuario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toDTO(creado));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDTO> actualizar(@PathVariable Long id, @Valid @RequestBody UsuarioRequestDTO dto) {
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    public ResponseEntity<UsuarioResponseDTO> actualizar(@PathVariable Long id, @Valid @RequestBody UsuarioUpdateDTO dto) {
         Usuario actualizado = userCrudService.actualizarUsuario(id, dto);
         return ResponseEntity.ok(mapper.toDTO(actualizado));
     }
 
     @PatchMapping("/{email}/desactivar")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<Void> desactivar(@PathVariable String email) {
         userCrudService.desactivarUsuario(email);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{email}/activar")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<Void> activar(@PathVariable String email) {
         userCrudService.activarUsuario(email);
         return ResponseEntity.noContent().build();

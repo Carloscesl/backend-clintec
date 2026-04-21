@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return User.builder()
                 .username(usuario.getEmail())
                 .password(usuario.getPassword())
-                .authorities(Collections.singletonList(() -> usuario.getRol().name()))
+                .authorities("ROLE_" + usuario.getRol().name())
                 .accountLocked(!usuario.getActivo())
                 .disabled(!usuario.getActivo())
                 .build();

@@ -3,6 +3,7 @@ package com.terreneitors.backendclintec.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -14,6 +15,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
     private final JwtFilter jwtFilter;
 
@@ -25,11 +27,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
-                // --- AÑADE ESTA LÍNEA ---
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 // ------------------------
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/auth/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess
@@ -49,7 +53,7 @@ public class SecurityConfig {
         // Permitir el origen de tu Angular
         configuration.setAllowedOrigins(java.util.List.of("http://localhost:4200"));
         // Permitir los métodos comunes
-        configuration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         // Permitir headers necesarios para el JWT y el contenido
         configuration.setAllowedHeaders(java.util.List.of("Authorization", "Content-Type", "X-Requested-With"));
         // Permitir enviar credenciales si fuera necesario

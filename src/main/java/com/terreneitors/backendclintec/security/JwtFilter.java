@@ -36,17 +36,17 @@ public class JwtFilter extends OncePerRequestFilter {
 
         final String authHeader = request.getHeader("Authorization");
 
-        // 🔥 Si no hay token, continúa
+        //Si no hay token, continúa
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 🔑 Extraer token
+        //Extraer token
         String jwt = authHeader.substring(7);
         String email = jwtService.extractUsername(jwt);
 
-        // 🔐 Validar si no está autenticado ya
+        //Validar si no está autenticado ya
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
