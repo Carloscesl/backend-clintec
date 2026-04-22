@@ -1,28 +1,25 @@
-# IMAGEN MODELO
-FROM eclipse-temurin:21.0.10_7-jdk
+# ── ETAPA 1: Compilar ──────────────────────────────
+FROM eclipse-temurin:21.0.10_7-jdk AS builder
 
-# PUERTO DONDE SE EJECUTA EL CONTENEDOR(INFORMATIVO)
-EXPOSE 8080
-
-#DEFINIR DIRECTORIO RAIZ DEL CONTENEDOR
 WORKDIR /root
 
-# COPIAR Y PEGAR ARCHIVOS DENTRO DEL CONTENEDOR
-COPY ./pom.xml /root
-COPY ./.mvn /root/.mvn
-COPY ./mvnw /root
+COPY ./pom.xml .
+COPY ./.mvn .mvn
+COPY ./mvnw .
 
-# Asegurar permisos de ejecución
 RUN chmod +x mvnw
-
-# DESCARGAR LAS DEPENDECIAS
 RUN ./mvnw dependency:go-offline
 
-# COPIAR CODIGO FUENTE
-COPY ./src /root/src
+COPY ./src ./src
+RUN ./mvnw clean package -DskipTests
 
-# CONSTRUIR APLICACION
-RUN ./mvnw clean install -DskipTests
+# ── ETAPA 2: Imagen final liviana ──────────────────
+FROM eclipse-temurin:21-jre
 
-# LEVANTAR APLICACION CUANDO EL CONTENEDOR SE INICIE
-ENTRYPOINT ["java", "-jar", "/root/target/backend-clintec-0.0.1-SNAPSHOT.jar"]
+WORKDIR /root
+
+COPY --from=builder /root/target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "/root/app.jar"]
