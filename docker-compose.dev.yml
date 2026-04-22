@@ -1,0 +1,47 @@
+services:
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: backend-clintec:dev
+    container_name: backend-clintec
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./src:/root/src
+      - ./logs:/root/logs
+    depends_on:
+      db-clintec:
+        condition: service_healthy
+    env_file:
+      - .env
+    networks:
+      - clintec-net
+
+  db-clintec:
+    image: mysql:8.0
+    container_name: mysql-clintec
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: clintec_db
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - clintec-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql_data:
+
+networks:
+  clintec-net:
+    driver: bridge
