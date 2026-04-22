@@ -1,6 +1,6 @@
 package com.terreneitors.backendclintec.security;
 
-import com.terreneitors.backendclintec.usuarios.domain.Usuario;
+import com.terreneitors.backendclintec.users.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -17,10 +17,10 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String SECRET;
 
-    public String generateToken(Usuario usuario) {
+    public String generateToken(User user) {
         return Jwts.builder()
-                .subject(usuario.getEmail())
-                .claim("rol", usuario.getRol().name())
+                .subject(user.getEmail())
+                .claim("rol", user.getRol().name())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(Keys.hmacShaKeyFor(SECRET.getBytes()))

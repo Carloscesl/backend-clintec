@@ -1,0 +1,13 @@
+FROM eclipse-temurin:21.0.10_7-jdk
+
+WORKDIR /root
+
+COPY ./pom.xml .
+COPY ./.mvn .mvn
+COPY ./mvnw .
+
+RUN chmod +x mvnw
+RUN ./mvnw dependency:go-offline
+
+# El código se sincroniza vía volúmenes en el docker-compose.dev.yml
+ENTRYPOINT ["./mvnw", "spring-boot:run"]
