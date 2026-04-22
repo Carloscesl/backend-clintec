@@ -1,0 +1,33 @@
+# Compilados
+target/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+Dockerfile.dev
+docker-compose*.yml
+.dockerignore
+
+# Logs
+logs/
+
+# Variables de entorno
+.env
+
+# Documentación
+*.md
+README*
+
+# OS
+.DS_Store
+Thumbs.db
