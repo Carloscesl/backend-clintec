@@ -15,7 +15,6 @@ target/
 # Docker
 Dockerfile
 Dockerfile.dev
-docker-compose*.yml
 .dockerignore
 
 # Logs
@@ -26,7 +25,6 @@ logs/
 
 # Documentación
 *.md
-README*
 
 # OS
 .DS_Store
