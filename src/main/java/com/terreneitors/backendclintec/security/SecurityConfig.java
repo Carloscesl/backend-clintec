@@ -1,6 +1,7 @@
 package com.terreneitors.backendclintec.security;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -11,12 +12,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+
+    @Value("${app.cors.allowed-origins:http://localhost}")
+    private String allowedOrigins;
+
     private final JwtFilter jwtFilter;
 
     public SecurityConfig(JwtFilter jwtFilter) {
@@ -47,11 +53,13 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
-    public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
-        org.springframework.web.cors.CorsConfiguration configuration = new org.springframework.web.cors.CorsConfiguration();
+    public CorsConfigurationSource corsConfigurationSource() {
+
+        CorsConfiguration configuration = new CorsConfiguration();
         // Permitir el origen de tu Angular
-        configuration.setAllowedOrigins(java.util.List.of("http://localhost:4200"));
+        configuration.setAllowedOrigins(java.util.List.of(allowedOrigins));
         // Permitir los métodos comunes
         configuration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         // Permitir headers necesarios para el JWT y el contenido
