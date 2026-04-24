@@ -4,6 +4,7 @@ import com.terreneitors.backendclintec.clients.application.port.in.ClientCrudUse
 import com.terreneitors.backendclintec.clients.application.port.out.ClientRepositoryPort;
 import com.terreneitors.backendclintec.clients.domain.Client;
 import com.terreneitors.backendclintec.clients.infrastructure.dto.ClientRequestDTO;
+import com.terreneitors.backendclintec.qualification.application.port.in.QualificationCrudUseCase;
 import com.terreneitors.backendclintec.shared.exception.ResourceNotFoundException;
 import com.terreneitors.backendclintec.shared.exception.ValidationException;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class ClientCrudService implements ClientCrudUseCase {
 
     private final ClientRepositoryPort clientRepositoryPort;
+    private final QualificationCrudUseCase qualificationCrudUseCase;
 
     @Override
     public List<Client> findAll() {
@@ -51,6 +53,8 @@ public class ClientCrudService implements ClientCrudUseCase {
 
         Client guardado = clientRepositoryPort.save(nuevoClient);
         log.info("[CLIENTE_CREADO] id={} | email={}", guardado.getId(), guardado.getEmail());
+
+        qualificationCrudUseCase.createQualificationInitial(guardado.getId());
 
         return guardado;
     }
