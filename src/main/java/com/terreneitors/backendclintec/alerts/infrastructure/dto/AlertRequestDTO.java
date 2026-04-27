@@ -1,4 +1,4 @@
 package com.terreneitors.backendclintec.alerts.infrastructure.dto;
 
-public record AlertResponse() {
+public record AlertRequestDTO() {
 }
