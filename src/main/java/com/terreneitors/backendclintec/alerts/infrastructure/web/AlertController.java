@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/alertas")
 @RequiredArgsConstructor
 @CrossOrigin("http://localhost:4200")
-public class AlerController {
+public class AlertController {
     private final AlertCrudUseCase useCase;
     private final AlertPersistenceMapper mapper;
 

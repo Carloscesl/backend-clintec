@@ -22,9 +22,9 @@ public interface SpringAlertRepository extends JpaRepository<AlertEntity, Long> 
 
     // Clientes sin interacciones desde una fecha
     @Query("""
-        SELECT DISTINCT c.idCliente FROM ClienteEntity c
-        WHERE c.idCliente NOT IN (
-            SELECT i.clienteId FROM InteraccionEntity i
+        SELECT DISTINCT c.id FROM ClientEntity c
+        WHERE c.id NOT IN (
+            SELECT i.clienteId FROM InteractionEntity i
             WHERE i.fecha >= :fecha
         )
         """)
@@ -32,16 +32,16 @@ public interface SpringAlertRepository extends JpaRepository<AlertEntity, Long> 
 
     // Oportunidades activas con fecha de cierre vencida
     @Query("""
-        SELECT DISTINCT o.clienteId FROM OportunidadEntity o
+        SELECT DISTINCT o.clienteId FROM OpportunityEntity o
         WHERE o.estado = 'ACTIVA'
-        AND o.fechaEstimadaCierre < :ahora
+        AND o.fechaCierreEstimada < :ahora
         """)
     List<Long> findOportunidadesVencidasActivas(@Param("ahora") LocalDateTime ahora);
 
     // Oportunidades en NEGOCIACIÓN sin cambios
     @Query("""
-        SELECT DISTINCT o.clienteId FROM OportunidadEntity o
-        WHERE o.etapaOportunidad = 'NEGOCIACIÓN'
+        SELECT DISTINCT o.clienteId FROM OpportunityEntity o
+        WHERE o.etapa = 'NEGOCIACIÓN'
         AND o.fechaActualizacion < :fecha
         AND o.estado = 'ACTIVA'
         """)
@@ -49,9 +49,9 @@ public interface SpringAlertRepository extends JpaRepository<AlertEntity, Long> 
 
     // Clientes sin oportunidades desde una fecha
     @Query("""
-        SELECT DISTINCT c.idCliente FROM ClienteEntity c
-        WHERE c.idCliente NOT IN (
-            SELECT o.clienteId FROM OportunidadEntity o
+        SELECT DISTINCT c.id FROM ClientEntity c
+        WHERE c.id NOT IN (
+            SELECT o.clienteId FROM OpportunityEntity o
             WHERE o.fechaCreacion >= :fecha
             AND o.estado = 'ACTIVA'
         )
