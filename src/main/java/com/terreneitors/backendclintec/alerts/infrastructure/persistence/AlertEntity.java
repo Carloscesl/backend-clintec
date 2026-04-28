@@ -48,6 +48,7 @@ public class AlertEntity {
     void prePersist() {
         this.fecha              = LocalDateTime.now();
         this.fechaActualizacion = LocalDateTime.now();
+        this.estado             = StateAlert.PENDIENTE;
     }
 
     @PreUpdate

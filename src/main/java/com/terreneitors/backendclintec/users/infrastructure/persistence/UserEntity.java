@@ -14,12 +14,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idUsuario")
+    @Column(name = "id_usuario")
     private Long id;
 
-    @Column(name = "nombreUser", nullable = false, length = 100)
+    @Column(name = "nombre_user", nullable = false, length = 100)
     private String nombreUser;
 
     @Column(name = "email", nullable = false, unique = true, length = 120)
@@ -33,9 +34,14 @@ public class UserEntity {
     private Rol rol;
 
     @Column(name = "activo")
-    private boolean activo;
+    private Boolean activo;
 
-    @Column(name = "fecha_creacion")
+    @Column(name = "fecha_creacion", updatable = false)
     private LocalDateTime fechaCreacion;
 
+    @PrePersist
+    void prePersist() {
+        this.fechaCreacion = LocalDateTime.now();
+        if (this.activo == null) this.activo = true;
+    }
 }
