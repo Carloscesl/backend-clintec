@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:replace="~{emails/layout :: layout(
+    ~{::titulo},
+    ~{::contenido},
+    '#f59e0b, #d97706',
+    '#fef3c7',
+    '#92400e',
+    '⚠️'
+)}">
+
+    <!-- Título -->
+    <th:block th:fragment="titulo">
+        Alerta de Inactividad
+    </th:block>
+
+    <!-- Contenido -->
+    <th:block th:fragment="contenido">
+
+        <p class="saludo">
+            Hola <strong th:text="${nombreUsuario}">Asesor</strong>,
+        </p>
+        <p class="descripcion">
+            Uno de tus clientes no ha tenido interacciones recientes
+            y requiere seguimiento inmediato.
+        </p>
+
+        <!-- Badge -->
+        <div class="badge-container">
+            <span class="badge"
+                  style="background: #fef3c7; color: #92400e;">
+                ⚠️ INACTIVIDAD
+            </span>
+        </div>
+
+        <!-- Info del cliente -->
+        <div class="info-card">
+            <div class="info-card-header"
+                 style="background: #fffbeb; color: #92400e;">
+                📋 Datos del Cliente
+            </div>
+            <div class="info-row">
+                <span class="info-label">Cliente</span>
+                <span class="info-value"
+                      th:text="${nombreCliente}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Empresa</span>
+                <span class="info-value"
+                      th:text="${empresa}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Días sin contacto</span>
+                <span class="info-value"
+                      style="color: #d97706; font-weight: 700;"
+                      th:text="${diasSinContacto} + ' días'">15 días</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Oportunidad activa</span>
+                <span class="info-value"
+                      th:text="${descripcionOportunidad}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Valor estimado</span>
+                <span class="info-value"
+                      th:text="'$ ' + ${valorEstimado}">$0</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Alerta vence el</span>
+                <span class="info-value"
+                      th:text="${fechaVencimiento}">—</span>
+            </div>
+        </div>
+
+        <!-- Tip -->
+        <div class="tip-box"
+             style="background: #fffbeb; border-color: #f59e0b; color: #92400e;">
+            💡 <strong>Sugerencia:</strong> Contacta al cliente por
+            llamada o email y registra la interacción en el CRM
+            para cerrar esta alerta automáticamente.
+        </div>
+
+        <!-- CTA -->
+        <div class="btn-container">
+            <a href="http://localhost:4200/admin"
+               class="btn-cta"
+               style="background: #f59e0b;">
+                Ir al CRM → Gestionar Alerta
+            </a>
+        </div>
+
+    </th:block>
+</div>
+
+</body>
+</html>
