@@ -13,4 +13,5 @@ public interface SaleCrudUseCase {
     List<Sale> findIdOpportunity(Long idOportunidad);
     Sale createSale(SaleRequestDTO venta);
     Sale updateSale(Long idVenta, SaleRequestDTO ventaUpdate);
+    Long count();
 }

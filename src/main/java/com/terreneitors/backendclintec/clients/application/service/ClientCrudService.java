@@ -77,4 +77,9 @@ public class ClientCrudService implements ClientCrudUseCase {
 
         return actualizado;
     }
+
+    @Override
+    public Long count() {
+        return clientRepositoryPort.count();
+    }
 }

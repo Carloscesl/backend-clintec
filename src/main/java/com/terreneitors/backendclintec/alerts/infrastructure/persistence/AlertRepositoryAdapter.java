@@ -76,4 +76,14 @@ public class AlertRepositoryAdapter implements AlertRepositoryPort {
     public List<Long> findClientesSinOportunidadesDesdeFecha(LocalDateTime fecha) {
         return springAlertRepository.findClientesSinOportunidadesDesdeFecha(fecha);
     }
+
+    @Override
+    public long countByEstado(StateAlert estado) {
+        return springAlertRepository.countByEstado(estado);
+    }
+
+    @Override
+    public long countByUsuarioIdAndEstado(Long usuarioId, StateAlert estado) {
+        return springAlertRepository.countByUsuarioIdAndEstado(usuarioId, estado);
+    }
 }

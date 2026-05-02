@@ -44,4 +44,9 @@ public class ClientRepositoryAdapter implements ClientRepositoryPort {
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Long count() {
+        return springClientRepository.count();
+    }
 }

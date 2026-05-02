@@ -102,4 +102,9 @@ public class SaleCrudService implements SaleCrudUseCase {
 
         return actualizada;
     }
+
+    @Override
+    public Long count() {
+        return saleRepositoryPort.count();
+    }
 }

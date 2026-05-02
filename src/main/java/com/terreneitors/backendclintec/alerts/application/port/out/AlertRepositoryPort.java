@@ -1,6 +1,7 @@
 package com.terreneitors.backendclintec.alerts.application.port.out;
 
 import com.terreneitors.backendclintec.alerts.domain.Alert;
+import com.terreneitors.backendclintec.alerts.domain.StateAlert;
 import com.terreneitors.backendclintec.alerts.domain.TypeAlert;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,8 @@ public interface AlertRepositoryPort {
     // Para el Scheduler — verificar si ya existe alerta del mismo tipo
     boolean existeAlertPendiente(Long clienteId, TypeAlert tipo);
 
+    long countByEstado(StateAlert estado);
+    long countByUsuarioIdAndEstado(Long usuarioId, StateAlert estado);
     // Queries para el Scheduler
     List<Long> findClientesSinInteraccionesDesdeFecha(LocalDateTime fecha);
     List<Long> findOportunidadesVencidasActivas(LocalDateTime fecha);

@@ -1,6 +1,7 @@
 package com.terreneitors.backendclintec.users.infrastructure.web;
 
 import com.terreneitors.backendclintec.users.application.service.UserCrudService;
+import com.terreneitors.backendclintec.users.domain.Rol;
 import com.terreneitors.backendclintec.users.domain.User;
 import com.terreneitors.backendclintec.users.infrastructure.dto.UserRequestDTO;
 import com.terreneitors.backendclintec.users.infrastructure.dto.UserResponseDTO;
@@ -76,5 +77,16 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/total")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    public ResponseEntity<Long> count(){
+        return ResponseEntity.ok(userCrudService.count());
+    }
+
+    @GetMapping("/total-por-rol/{rol}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    public ResponseEntity<Long> countByRol(@PathVariable Rol rol) {
+        return ResponseEntity.ok(userCrudService.countByRol(rol));
+    }
 
 }

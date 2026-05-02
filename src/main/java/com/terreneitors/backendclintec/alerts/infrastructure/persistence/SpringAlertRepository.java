@@ -57,4 +57,8 @@ public interface SpringAlertRepository extends JpaRepository<AlertEntity, Long> 
         )
         """)
     List<Long> findClientesSinOportunidadesDesdeFecha(@Param("fecha") LocalDateTime fecha);
+
+    long countByEstado(StateAlert estado);
+    long countByUsuarioIdAndEstado(Long usuarioId, StateAlert estado);
+
 }

@@ -1,5 +1,6 @@
 package com.terreneitors.backendclintec.users.application.port.in;
 
+import com.terreneitors.backendclintec.users.domain.Rol;
 import com.terreneitors.backendclintec.users.domain.User;
 import com.terreneitors.backendclintec.users.infrastructure.dto.UserRequestDTO;
 import com.terreneitors.backendclintec.users.infrastructure.dto.UserUpdateDTO;
@@ -16,6 +17,9 @@ public interface UserCrudUseCase {
 
     User updateUser(Long id, UserUpdateDTO usuario);
 
+    Long count();
+    Long countByRol(Rol rol);
+    
     void desactivateUser(String email);
     void activateUser(String email);
 

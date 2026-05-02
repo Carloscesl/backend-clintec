@@ -12,6 +12,6 @@ public interface ClientCrudUseCase {
     Optional<Client> findByEmail(String email);
 
     Client createClient(ClientRequestDTO cliente);
-
+    Long count();
     Client updateClient(Long id, ClientRequestDTO cliente);
 }

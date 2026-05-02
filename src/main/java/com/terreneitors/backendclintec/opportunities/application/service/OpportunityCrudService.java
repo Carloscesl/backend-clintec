@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -217,5 +218,10 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
 
         log.info("[OPORTUNIDAD_PERDIDA] id={} | asesorId={} | valor={}",
                 id, opportunity.getAsesorId(), opportunity.getValorEstimado());
+    }
+
+    @Override
+    public Long count() {
+        return oportunidadesRespositoryPort.count();
     }
 }
