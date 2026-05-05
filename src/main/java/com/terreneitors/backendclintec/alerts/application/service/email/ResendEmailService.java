@@ -1,4 +1,4 @@
-package com.terreneitors.backendclintec.alerts.infrastructure.email;
+package com.terreneitors.backendclintec.alerts.application.service.email;
 
 import com.resend.Resend;
 import com.resend.core.exception.ResendException;

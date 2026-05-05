@@ -14,6 +14,7 @@ public interface AlertCrudUseCase {
     List<Alert>     buscarPendientes();
 
     long countByEstado(StateAlert estado);
+    long countByUsuarioIdAndEstado(Long usuarioId, StateAlert estado);
     Alert marcarComoVista(Long id);
     Alert resolver(Long id);
 }

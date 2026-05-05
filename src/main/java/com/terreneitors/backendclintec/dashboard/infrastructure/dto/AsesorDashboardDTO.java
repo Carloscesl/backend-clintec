@@ -8,7 +8,7 @@ public record AsesorDashboardDTO(
         long misOportunidadesGanadas,
         long misOportunidadesPerdidas,
         BigDecimal miValorGanado,
-
+        long misAlertasPendientes,
         // Su embudo personal
         long enProspeccion,
         long enCalificacion,

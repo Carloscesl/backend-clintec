@@ -87,4 +87,8 @@ public class AlertCrudService implements AlertCrudUseCase {
         return alertRepositoryPort.countByEstado(estado);
     }
 
+    @Override
+    public long countByUsuarioIdAndEstado(Long usuarioId, StateAlert estado) {
+        return alertRepositoryPort.countByUsuarioIdAndEstado(usuarioId, estado);
+    }
 }
