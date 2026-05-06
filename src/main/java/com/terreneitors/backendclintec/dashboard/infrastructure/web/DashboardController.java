@@ -40,7 +40,8 @@ public class DashboardController {
             @AuthenticationPrincipal UserDetails userDetails) {
         Long asesorId = usuarioRepo
                 .findByEmail(userDetails.getUsername())
-                .get().getId();
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"))
+                .getId();
         return ResponseEntity.ok(
                 dashboardService.getAsesorDashboard(asesorId));
     }

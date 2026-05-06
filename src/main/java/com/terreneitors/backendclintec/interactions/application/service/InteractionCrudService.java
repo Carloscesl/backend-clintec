@@ -75,7 +75,7 @@ public class InteractionCrudService implements InteractionCrudUseCase {
                     "No se puede registrar una interacción sobre una oportunidad PERDIDA.");
         }
 
-        if (!oportunidad.getClienteId().equals(dto.equals(dto.clienteId()))){
+        if (!oportunidad.getClienteId().equals(dto.clienteId())) {
             throw new ValidationException(
                     "El cliente de la oportunidad no coincide con el cliente indicado."
             );

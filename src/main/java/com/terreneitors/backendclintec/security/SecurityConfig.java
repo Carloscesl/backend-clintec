@@ -32,7 +32,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable()) // NOSONAR - API REST con JWT, CSRF no aplica
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 // ------------------------
                 .authorizeHttpRequests(auth -> auth
