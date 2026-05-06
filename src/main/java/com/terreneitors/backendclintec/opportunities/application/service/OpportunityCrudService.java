@@ -97,7 +97,7 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
 
         Opportunity opportunity = oportunidadesRespositoryPort.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Oportunidad", "id", id));
+                        "Oportunidad Actualizar", "id", id));
 
         if (opportunity.getEstado() == StatusOpportunity.GANADA ||
                 opportunity.getEstado() == StatusOpportunity.PERDIDA) {
@@ -124,7 +124,7 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
 
         Opportunity opportunity = oportunidadesRespositoryPort.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Oportunidad", "id", id));
+                        "Oportunidad al cambiar", "id", id));
 
         if (opportunity.getEstado() == StatusOpportunity.GANADA ||
                 opportunity.getEstado() == StatusOpportunity.PERDIDA) {
@@ -149,7 +149,7 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
 
         Opportunity opportunity = oportunidadesRespositoryPort.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Oportunidad", "id", id));
+                        "Oportunidad al ajustar", "id", id));
 
         int min = opportunity.getEtapaOportunidad().getMin();
         int max = opportunity.getEtapaOportunidad().getMax();
