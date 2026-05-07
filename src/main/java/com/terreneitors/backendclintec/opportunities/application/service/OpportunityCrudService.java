@@ -106,6 +106,7 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
                             + opportunity.getEstado());
         }
 
+        opportunity.setAsesorId(dto.asesorId());
         opportunity.setDescripcion(dto.descripcion());
         opportunity.setValorEstimado(dto.valorEstimado());
         opportunity.setFechaEstimadaCierre(dto.fechaCierreEstimada());

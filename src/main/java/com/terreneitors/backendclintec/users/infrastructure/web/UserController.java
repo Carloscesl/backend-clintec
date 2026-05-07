@@ -89,4 +89,11 @@ public class UserController {
         return ResponseEntity.ok(userCrudService.countByRol(rol));
     }
 
+    @GetMapping("/filtrar")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    public ResponseEntity<List<UserResponseDTO>> listByRole(@RequestParam Rol rol){
+        List<UserResponseDTO> lista = userCrudService.findAllRol(rol).stream().map(mapper::toDTO).toList();
+        return ResponseEntity.ok(lista);
+    }
+
 }

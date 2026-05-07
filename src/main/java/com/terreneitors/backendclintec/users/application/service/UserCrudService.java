@@ -117,6 +117,11 @@ public class UserCrudService implements UserCrudUseCase {
         return usuarioRepository.countByRol(rol);
     }
 
+    @Override
+    public List<User> findAllRol(Rol rol) {
+        return usuarioRepository.findAllRol(rol);
+    }
+
     private User buscarPorEmailOFallar(String email) {
         return usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", "email", email));

@@ -13,6 +13,8 @@ public interface UserCrudUseCase {
     Optional<User> findById(Long id);
     Optional<User> findByEmail(String email);
 
+    List<User> findAllRol(Rol rol);
+
     User createUser(UserRequestDTO usuario);
 
     User updateUser(Long id, UserUpdateDTO usuario);

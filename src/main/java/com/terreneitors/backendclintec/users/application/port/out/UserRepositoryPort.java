@@ -13,4 +13,5 @@ public interface UserRepositoryPort {
     List<User> findAll();
     Long count();
     Long countByRol(Rol rol);
+    List<User> findAllRol(Rol rol);
 }

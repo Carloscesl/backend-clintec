@@ -46,6 +46,14 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     }
 
     @Override
+    public List<User> findAllRol(Rol rol) {
+        return springUserRepository.findByRol(rol)
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
+    }
+
+    @Override
     public Long count() {
         return springUserRepository.count();
     }

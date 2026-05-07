@@ -8,12 +8,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record OpportunityResponseDTO(
-        Long idOportunidades,
+        Long idOportunidad,
         Long clienteId,
-        Long asesorrId,
+        Long asesorId,
         String descripcion,
         BigDecimal valorEstimado,
-        Integer probalidad,
+        Integer probabilidad,
         StageOpportunity etapa,
         StatusOpportunity estado,
         boolean esPotencial,
