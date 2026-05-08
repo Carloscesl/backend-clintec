@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface SpringAlertRepository extends JpaRepository<AlertEntity, Long> 
         WHERE o.estado = 'ACTIVA'
         AND o.fechaCierreEstimada < :ahora
         """)
-    List<Long> findOportunidadesVencidasActivas(@Param("ahora") LocalDateTime ahora);
+    List<Long> findOportunidadesVencidasActivas(@Param("ahora") LocalDate ahora);
 
     // Oportunidades en NEGOCIACIÓN sin cambios
     @Query("""

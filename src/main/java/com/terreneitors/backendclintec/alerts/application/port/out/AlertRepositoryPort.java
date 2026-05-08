@@ -4,6 +4,7 @@ import com.terreneitors.backendclintec.alerts.domain.Alert;
 import com.terreneitors.backendclintec.alerts.domain.StateAlert;
 import com.terreneitors.backendclintec.alerts.domain.TypeAlert;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public interface AlertRepositoryPort {
     long countByUsuarioIdAndEstado(Long usuarioId, StateAlert estado);
     // Queries para el Scheduler
     List<Long> findClientesSinInteraccionesDesdeFecha(LocalDateTime fecha);
-    List<Long> findOportunidadesVencidasActivas(LocalDateTime fecha);
+    List<Long> findOportunidadesVencidasActivas(LocalDate fecha);
     List<Long> findOportunidadesEnNegociacionSinCambios(LocalDateTime fecha);
     List<Long> findClientesSinOportunidadesDesdeFecha(LocalDateTime fecha);
 }

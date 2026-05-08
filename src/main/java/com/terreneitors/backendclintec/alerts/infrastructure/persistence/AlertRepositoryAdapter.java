@@ -8,6 +8,7 @@ import com.terreneitors.backendclintec.alerts.infrastructure.persistence.Mapper.
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -63,7 +64,7 @@ public class AlertRepositoryAdapter implements AlertRepositoryPort {
     }
 
     @Override
-    public List<Long> findOportunidadesVencidasActivas(LocalDateTime fecha) {
+    public List<Long> findOportunidadesVencidasActivas(LocalDate fecha) {
         return springAlertRepository.findOportunidadesVencidasActivas(fecha);
     }
 

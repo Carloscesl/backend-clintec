@@ -86,7 +86,7 @@ public class AlertSchedulerService {
         log.info("[SCHEDULER_VENCIMIENTO] Verificando oportunidades vencidas");
 
         List<Long> clientes = alertRepositoryPort
-                .findOportunidadesVencidasActivas(LocalDateTime.now());
+                .findOportunidadesVencidasActivas(LocalDate.now());
 
         for (Long clienteId : clientes) {
             if (alertRepositoryPort.existeAlertPendiente(
