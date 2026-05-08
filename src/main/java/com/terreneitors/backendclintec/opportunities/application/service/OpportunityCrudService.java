@@ -133,6 +133,7 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
                     "No se puede cambiar la etapa de una oportunidad cerrada. Estado: "
                             + opportunity.getEstado());
         }
+        opportunity.setEtapaOportunidad(nuevaEtapa);
 
         Opportunity actualizada = oportunidadesRespositoryPort.save(opportunity);
 
