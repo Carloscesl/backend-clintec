@@ -2,10 +2,8 @@ package com.terreneitors.backendclintec.opportunities.application.port.in;
 
 import com.terreneitors.backendclintec.opportunities.domain.StageOpportunity;
 import com.terreneitors.backendclintec.opportunities.domain.Opportunity;
-import com.terreneitors.backendclintec.opportunities.domain.StatusOpportunity;
 import com.terreneitors.backendclintec.opportunities.infrastructure.dto.OpportunityRequestDTO;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,5 +21,5 @@ public interface OpportunityCrudUseCase {
     Long count();
     void closeAsWon(Long id);
     void closeAsLost(Long id);
-    // opportunities/domain/OpportunityRepository.java
+    
 }
