@@ -96,7 +96,7 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
 
         Opportunity opportunity = oportunidadesRespositoryPort.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Oportunidad", "id", id));
+                        "Oportunidad Actualizar", "id", id));
 
         if (opportunity.getEstado() == StatusOpportunity.GANADA ||
                 opportunity.getEstado() == StatusOpportunity.PERDIDA) {
@@ -105,6 +105,7 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
                             + opportunity.getEstado());
         }
 
+        opportunity.setAsesorId(dto.asesorId());
         opportunity.setDescripcion(dto.descripcion());
         opportunity.setValorEstimado(dto.valorEstimado());
         opportunity.setFechaEstimadaCierre(dto.fechaCierreEstimada());
@@ -123,7 +124,7 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
 
         Opportunity opportunity = oportunidadesRespositoryPort.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Oportunidad", "id", id));
+                        "Oportunidad al cambiar", "id", id));
 
         if (opportunity.getEstado() == StatusOpportunity.GANADA ||
                 opportunity.getEstado() == StatusOpportunity.PERDIDA) {
@@ -131,6 +132,7 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
                     "No se puede cambiar la etapa de una oportunidad cerrada. Estado: "
                             + opportunity.getEstado());
         }
+        opportunity.setEtapaOportunidad(nuevaEtapa);
 
         Opportunity actualizada = oportunidadesRespositoryPort.save(opportunity);
 
@@ -148,7 +150,7 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
 
         Opportunity opportunity = oportunidadesRespositoryPort.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Oportunidad", "id", id));
+                        "Oportunidad al ajustar", "id", id));
 
         int min = opportunity.getEtapaOportunidad().getMin();
         int max = opportunity.getEtapaOportunidad().getMax();
@@ -217,5 +219,10 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
 
         log.info("[OPORTUNIDAD_PERDIDA] id={} | asesorId={} | valor={}",
                 id, opportunity.getAsesorId(), opportunity.getValorEstimado());
+    }
+
+    @Override
+    public Long count() {
+        return oportunidadesRespositoryPort.count();
     }
 }

@@ -18,6 +18,8 @@ public interface OpportunityCrudUseCase {
     Opportunity updateOpportunities(Long id, OpportunityRequestDTO oportunidad);
     Opportunity changeStage(Long id, StageOpportunity nuevaEtapa);
     Opportunity adjustProbability(Long id, int probabilidad);
+    Long count();
     void closeAsWon(Long id);
     void closeAsLost(Long id);
+    
 }

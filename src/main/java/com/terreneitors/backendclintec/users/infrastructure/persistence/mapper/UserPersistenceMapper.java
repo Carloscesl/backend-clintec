@@ -15,7 +15,7 @@ public class UserPersistenceMapper {
         user.setEmail(entity.getEmail());
         user.setPassword(entity.getPassword());
         user.setRol(entity.getRol());
-        user.setActivo(entity.isActivo());
+        user.setActivo(entity.getActivo());
         user.setFechaCreacion(entity.getFechaCreacion());
         return user;
     }

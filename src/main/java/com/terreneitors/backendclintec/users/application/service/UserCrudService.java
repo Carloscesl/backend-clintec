@@ -4,6 +4,7 @@ import com.terreneitors.backendclintec.shared.exception.ResourceNotFoundExceptio
 import com.terreneitors.backendclintec.shared.exception.ValidationException;
 import com.terreneitors.backendclintec.users.application.port.in.UserCrudUseCase;
 import com.terreneitors.backendclintec.users.application.port.out.UserRepositoryPort;
+import com.terreneitors.backendclintec.users.domain.Rol;
 import com.terreneitors.backendclintec.users.domain.User;
 import com.terreneitors.backendclintec.users.infrastructure.dto.UserRequestDTO;
 import com.terreneitors.backendclintec.users.infrastructure.dto.UserUpdateDTO;
@@ -104,6 +105,21 @@ public class UserCrudService implements UserCrudUseCase {
         user.setActivo(true);
         usuarioRepository.save(user);
         log.info("[USUARIO_ACTIVADO] email={}", email);
+    }
+
+    @Override
+    public Long count() {
+        return usuarioRepository.count();
+    }
+
+    @Override
+    public Long countByRol(Rol rol) {
+        return usuarioRepository.countByRol(rol);
+    }
+
+    @Override
+    public List<User> findAllRol(Rol rol) {
+        return usuarioRepository.findAllRol(rol);
     }
 
     private User buscarPorEmailOFallar(String email) {

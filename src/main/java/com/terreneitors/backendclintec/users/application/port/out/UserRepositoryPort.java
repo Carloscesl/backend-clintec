@@ -1,5 +1,6 @@
 package com.terreneitors.backendclintec.users.application.port.out;
 
+import com.terreneitors.backendclintec.users.domain.Rol;
 import com.terreneitors.backendclintec.users.domain.User;
 
 import java.util.List;
@@ -10,4 +11,7 @@ public interface UserRepositoryPort {
     Optional<User> findById(Long id);
     User save(User user);
     List<User> findAll();
+    Long count();
+    Long countByRol(Rol rol);
+    List<User> findAllRol(Rol rol);
 }

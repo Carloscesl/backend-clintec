@@ -10,4 +10,5 @@ public interface ClientRepositoryPort {
     Optional<Client> findById(Long id);
     Client save(Client client);
     List<Client> findAll();
+    Long count();
 }

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:replace="~{emails/layout :: layout(
+    ~{::titulo},
+    ~{::contenido},
+    '#10b981, #059669',
+    '#d1fae5',
+    '#065f46',
+    '💼'
+)}">
+
+    <th:block th:fragment="titulo">
+        Cliente Sin Oportunidad
+    </th:block>
+
+    <th:block th:fragment="contenido">
+
+        <p class="saludo">
+            Hola <strong th:text="${nombreUsuario}">Administrador</strong>,
+        </p>
+        <p class="descripcion">
+            Un cliente registrado en el sistema no tiene oportunidades
+            activas asignadas. Es el momento de crear una nueva oportunidad
+            antes de perder el contacto comercial.
+        </p>
+
+        <div class="badge-container">
+            <span class="badge"
+                  style="background: #d1fae5; color: #065f46;">
+                💼 SIN OPORTUNIDAD
+            </span>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card-header"
+                 style="background: #f0fdf4; color: #065f46;">
+                📋 Datos del Cliente
+            </div>
+            <div class="info-row">
+                <span class="info-label">Cliente</span>
+                <span class="info-value"
+                      th:text="${nombreCliente}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Empresa</span>
+                <span class="info-value"
+                      th:text="${empresa}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Email</span>
+                <span class="info-value"
+                      th:text="${emailCliente}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Teléfono</span>
+                <span class="info-value"
+                      th:text="${telefono}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Días sin oportunidad</span>
+                <span class="info-value"
+                      style="color: #059669; font-weight: 700;"
+                      th:text="${diasSinOportunidad} + ' días'">15 días</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Calificación actual</span>
+                <span class="info-value"
+                      th:text="${clasificacion}">FRIO</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Notificado a</span>
+                <span class="info-value">Administración</span>
+            </div>
+        </div>
+
+        <div class="tip-box"
+             style="background: #f0fdf4; border-color: #10b981; color: #065f46;">
+            💡 <strong>Acción requerida:</strong> Asigna un asesor y
+            crea una nueva oportunidad para este cliente para reactivar
+            el proceso comercial.
+        </div>
+
+        <div class="btn-container">
+            <a href="http://localhost:4200/admin"
+               class="btn-cta"
+               style="background: #10b981;">
+                Ir al CRM → Crear Oportunidad
+            </a>
+        </div>
+
+    </th:block>
+</div>
+
+</body>
+</html>

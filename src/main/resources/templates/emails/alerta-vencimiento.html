@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:replace="~{emails/layout :: layout(
+    ~{::titulo},
+    ~{::contenido},
+    '#ef4444, #dc2626',
+    '#fee2e2',
+    '#991b1b',
+    '🚨'
+)}">
+
+    <th:block th:fragment="titulo">
+        Oportunidad Vencida
+    </th:block>
+
+    <th:block th:fragment="contenido">
+
+        <p class="saludo">
+            Hola <strong th:text="${nombreUsuario}">Usuario</strong>,
+        </p>
+        <p class="descripcion">
+            Una oportunidad comercial ha superado su fecha de cierre
+            estimada y aún se encuentra activa. Requiere atención urgente.
+        </p>
+
+        <div class="badge-container">
+            <span class="badge"
+                  style="background: #fee2e2; color: #991b1b;">
+                🚨 VENCIMIENTO
+            </span>
+        </div>
+
+        <!-- Alerta urgente -->
+        <div class="alerta-urgente"
+             style="background: #fee2e2; color: #991b1b;">
+            ⏰ Esta oportunidad requiere atención inmediata
+        </div>
+
+        <div class="info-card">
+            <div class="info-card-header"
+                 style="background: #fff5f5; color: #991b1b;">
+                📋 Datos de la Oportunidad
+            </div>
+            <div class="info-row">
+                <span class="info-label">Cliente</span>
+                <span class="info-value"
+                      th:text="${nombreCliente}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Empresa</span>
+                <span class="info-value"
+                      th:text="${empresa}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Oportunidad</span>
+                <span class="info-value"
+                      th:text="${descripcionOportunidad}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Valor estimado</span>
+                <span class="info-value"
+                      th:text="'$ ' + ${valorEstimado}">$0</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Fecha cierre estimada</span>
+                <span class="info-value"
+                      th:text="${fechaCierreEstimada}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Días vencida</span>
+                <span class="info-value"
+                      style="color: #dc2626; font-weight: 700;"
+                      th:text="${diasVencida} + ' días'">0</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Notificado a</span>
+                <span class="info-value">Asesor y Gerencia</span>
+            </div>
+        </div>
+
+        <div class="tip-box"
+             style="background: #fff5f5; border-color: #ef4444; color: #991b1b;">
+            💡 <strong>Acción requerida:</strong> Actualiza el estado —
+            ciérrala como ganada, perdida, o actualiza la fecha de
+            cierre estimada.
+        </div>
+
+        <div class="btn-container">
+            <a href="http://localhost:4200/admin"
+               class="btn-cta"
+               style="background: #ef4444;">
+                Ir al CRM → Ver Oportunidad
+            </a>
+        </div>
+
+    </th:block>
+</div>
+
+</body>
+</html>

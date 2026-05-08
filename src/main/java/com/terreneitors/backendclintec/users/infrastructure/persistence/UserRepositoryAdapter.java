@@ -1,6 +1,7 @@
 package com.terreneitors.backendclintec.users.infrastructure.persistence;
 
 import com.terreneitors.backendclintec.users.application.port.out.UserRepositoryPort;
+import com.terreneitors.backendclintec.users.domain.Rol;
 import com.terreneitors.backendclintec.users.domain.User;
 import com.terreneitors.backendclintec.users.infrastructure.persistence.mapper.UserPersistenceMapper;
 import org.springframework.stereotype.Repository;
@@ -44,4 +45,21 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<User> findAllRol(Rol rol) {
+        return springUserRepository.findByRol(rol)
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    public Long count() {
+        return springUserRepository.count();
+    }
+
+    @Override
+    public Long countByRol(Rol rol) {
+        return springUserRepository.countByRol(rol);
+    }
 }

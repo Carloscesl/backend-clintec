@@ -10,5 +10,6 @@ public interface SaleRepositoryPort {
     Optional<Sale> findId(Long idVentaLong);
     List<Sale> findIdAssessor(Long idAsesor);
     List<Sale> findIdOpportunity(Long idOportunidad);
+    Long count();
     Sale saveSale(Sale sale);
 }

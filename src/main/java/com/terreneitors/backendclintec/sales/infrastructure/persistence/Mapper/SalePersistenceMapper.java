@@ -13,7 +13,7 @@ public class SalePersistenceMapper {
         v.setIdOportunidad(entity.getIdOportunidad());
         v.setIdAsesor(entity.getIdAsesor());
         v.setValorVenta(entity.getValorVenta());
-        v.setMetodoPago(entity.getPaymentMethod());
+        v.setMetodoPago(entity.getMetodoPago());
         v.setNotas(entity.getNotas());
         v.setFechaVenta(entity.getFechaVenta());
         v.setFechaActualizacion(entity.getFechaActualizacion());
@@ -26,7 +26,7 @@ public class SalePersistenceMapper {
         entity.setIdOportunidad(v.getIdOportunidad());
         entity.setIdAsesor(v.getIdAsesor());
         entity.setValorVenta(v.getValorVenta());
-        entity.setPaymentMethod(v.getMetodoPago());
+        entity.setMetodoPago(v.getMetodoPago());
         entity.setNotas(v.getNotas());
         entity.setFechaVenta(v.getFechaVenta());
         entity.setFechaActualizacion(v.getFechaActualizacion());

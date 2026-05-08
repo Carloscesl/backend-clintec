@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:replace="~{emails/layout :: layout(
+    ~{::titulo},
+    ~{::contenido},
+    '#3b82f6, #2563eb',
+    '#dbeafe',
+    '#1e40af',
+    '📋'
+)}">
+
+    <th:block th:fragment="titulo">
+        Alerta de Seguimiento
+    </th:block>
+
+    <th:block th:fragment="contenido">
+
+        <p class="saludo">
+            Hola <strong th:text="${nombreUsuario}">Usuario</strong>,
+        </p>
+        <p class="descripcion">
+            Una oportunidad lleva varios días estancada en negociación
+            sin actualizaciones registradas en el sistema.
+        </p>
+
+        <div class="badge-container">
+            <span class="badge"
+                  style="background: #dbeafe; color: #1e40af;">
+                📋 SEGUIMIENTO
+            </span>
+        </div>
+
+        <!-- Etapa actual -->
+        <div class="alerta-urgente"
+             style="background: #eff6ff; color: #1e40af;">
+            🔄 Etapa actual: <strong>NEGOCIACIÓN</strong>
+        </div>
+
+        <div class="info-card">
+            <div class="info-card-header"
+                 style="background: #eff6ff; color: #1e40af;">
+                📋 Datos de la Oportunidad
+            </div>
+            <div class="info-row">
+                <span class="info-label">Cliente</span>
+                <span class="info-value"
+                      th:text="${nombreCliente}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Empresa</span>
+                <span class="info-value"
+                      th:text="${empresa}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Oportunidad</span>
+                <span class="info-value"
+                      th:text="${descripcionOportunidad}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Valor estimado</span>
+                <span class="info-value"
+                      th:text="'$ ' + ${valorEstimado}">$0</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Días sin actualización</span>
+                <span class="info-value"
+                      style="color: #2563eb; font-weight: 700;"
+                      th:text="${diasSinCambios} + ' días'">15 días</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Fecha cierre estimada</span>
+                <span class="info-value"
+                      th:text="${fechaCierreEstimada}">—</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Notificado a</span>
+                <span class="info-value">Asesor y Gerencia</span>
+            </div>
+        </div>
+
+        <div class="tip-box"
+             style="background: #eff6ff; border-color: #3b82f6; color: #1e40af;">
+            💡 <strong>Sugerencia:</strong> Registra una nueva interacción,
+            actualiza la etapa o ajusta la probabilidad para mantener
+            el pipeline activo.
+        </div>
+
+        <div class="btn-container">
+            <a href="http://localhost:4200/admin"
+               class="btn-cta"
+               style="background: #3b82f6;">
+                Ir al CRM → Ver Oportunidad
+            </a>
+        </div>
+
+    </th:block>
+</div>
+
+</body>
+</html>

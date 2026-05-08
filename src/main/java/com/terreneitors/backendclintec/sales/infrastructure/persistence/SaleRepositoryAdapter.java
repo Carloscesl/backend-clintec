@@ -40,4 +40,8 @@ public class SaleRepositoryAdapter implements SaleRepositoryPort {
         return ventaMapper.toDomain(ventaRepository.save(ventaMapper.toEntity(sale)));
     }
 
+    @Override
+    public Long count() {
+        return ventaRepository.count();
+    }
 }

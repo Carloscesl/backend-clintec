@@ -18,7 +18,7 @@ public class OpportunityEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idOportunidades")
+    @Column(name = "id_oportunidad")
     private Long id;
 
     @Column(name = "cliente_id", nullable = false)
