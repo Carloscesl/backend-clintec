@@ -55,7 +55,7 @@ class OpportunityCrudServiceTest {
         oportunidadActiva.setClienteId(10L);
         oportunidadActiva.setAsesorId(2L);
         oportunidadActiva.setEstado(StatusOpportunity.ACTIVA);
-        oportunidadActiva.setEtapaOportunidad(StageOpportunity.PROSPECCIÓN);
+        oportunidadActiva.setEtapaOportunidad(StageOpportunity.PROSPECCION);
         oportunidadActiva.setValorEstimado(BigDecimal.valueOf(10000));
 
         oportunidadGanada = new Opportunity();
@@ -132,7 +132,7 @@ class OpportunityCrudServiceTest {
 
     @Test
     void adjustProbability() {
-        int min = StageOpportunity.PROSPECCIÓN.getMin();
+        int min = StageOpportunity.PROSPECCION.getMin();
         int probabilidadValida = min + 1;
 
         when(oportunidadesRespositoryPort.findById(1L))

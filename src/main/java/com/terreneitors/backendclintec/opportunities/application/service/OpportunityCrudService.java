@@ -69,8 +69,8 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
         nueva.setValorEstimado(dto.valorEstimado());
         nueva.setFechaEstimadaCierre(dto.fechaCierreEstimada());
         nueva.setEstado(StatusOpportunity.ACTIVA);
-        nueva.setEtapaOportunidad(StageOpportunity.PROSPECCIÓN);
-        nueva.setProbabilidad(StageOpportunity.PROSPECCIÓN.getProbabilidadDefault());
+        nueva.setEtapaOportunidad(StageOpportunity.PROSPECCION);
+        nueva.setProbabilidad(StageOpportunity.PROSPECCION.getProbabilidadDefault());
 
         Opportunity guardada = oportunidadesRespositoryPort.save(nueva);
 

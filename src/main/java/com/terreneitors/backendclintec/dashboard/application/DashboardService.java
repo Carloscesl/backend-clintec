@@ -33,10 +33,10 @@ public class DashboardService {
                 opportunityRepo.countByEstado(StatusOpportunity.GANADA),
                 opportunityRepo.countByEstado(StatusOpportunity.PERDIDA),
                 opportunityRepo.sumValorEstimadoByEstado(StatusOpportunity.GANADA),
-                opportunityRepo.countByEtapaOportunidad(StageOpportunity.PROSPECCIÓN),
-                opportunityRepo.countByEtapaOportunidad(StageOpportunity.CALIFICACIÓN),
+                opportunityRepo.countByEtapaOportunidad(StageOpportunity.PROSPECCION),
+                opportunityRepo.countByEtapaOportunidad(StageOpportunity.CALIFICACION),
                 opportunityRepo.countByEtapaOportunidad(StageOpportunity.PROPUESTA),
-                opportunityRepo.countByEtapaOportunidad(StageOpportunity.NEGOCIACIÓN),
+                opportunityRepo.countByEtapaOportunidad(StageOpportunity.NEGOCIACION),
                 opportunityRepo.countByEtapaOportunidad(StageOpportunity.CIERRE_GANADO),
                 opportunityRepo.countByEtapaOportunidad(StageOpportunity.CIERRE_PERDIDO)
         );
@@ -50,10 +50,10 @@ public class DashboardService {
                 opportunityRepo.countByEstado(StatusOpportunity.GANADA),
                 opportunityRepo.countByEstado(StatusOpportunity.PERDIDA),
                 opportunityRepo.sumValorEstimadoByEstado(StatusOpportunity.GANADA),
-                opportunityRepo.countByEtapaOportunidad(StageOpportunity.PROSPECCIÓN),
-                opportunityRepo.countByEtapaOportunidad(StageOpportunity.CALIFICACIÓN),
+                opportunityRepo.countByEtapaOportunidad(StageOpportunity.PROSPECCION),
+                opportunityRepo.countByEtapaOportunidad(StageOpportunity.CALIFICACION),
                 opportunityRepo.countByEtapaOportunidad(StageOpportunity.PROPUESTA),
-                opportunityRepo.countByEtapaOportunidad(StageOpportunity.NEGOCIACIÓN),
+                opportunityRepo.countByEtapaOportunidad(StageOpportunity.NEGOCIACION),
                 opportunityRepo.countByEtapaOportunidad(StageOpportunity.CIERRE_GANADO),
                 opportunityRepo.countByEtapaOportunidad(StageOpportunity.CIERRE_PERDIDO)
         );
@@ -67,10 +67,10 @@ public class DashboardService {
                 opportunityRepo.countByAsesorIdAndEstado(asesorId, StatusOpportunity.PERDIDA),
                 opportunityRepo.sumValorEstimadoByEstado(StatusOpportunity.GANADA),
                 alertaRepo.countByUsuarioIdAndEstado(asesorId, StateAlert.PENDIENTE),
-                opportunityRepo.countByAsesorIdAndEtapaOportunidad(asesorId, StageOpportunity.PROSPECCIÓN),
-                opportunityRepo.countByAsesorIdAndEtapaOportunidad(asesorId, StageOpportunity.CALIFICACIÓN),
+                opportunityRepo.countByAsesorIdAndEtapaOportunidad(asesorId, StageOpportunity.PROSPECCION),
+                opportunityRepo.countByAsesorIdAndEtapaOportunidad(asesorId, StageOpportunity.CALIFICACION),
                 opportunityRepo.countByAsesorIdAndEtapaOportunidad(asesorId, StageOpportunity.PROPUESTA),
-                opportunityRepo.countByAsesorIdAndEtapaOportunidad(asesorId, StageOpportunity.NEGOCIACIÓN),
+                opportunityRepo.countByAsesorIdAndEtapaOportunidad(asesorId, StageOpportunity.NEGOCIACION),
                 opportunityRepo.countByAsesorIdAndEtapaOportunidad(asesorId, StageOpportunity.CIERRE_GANADO),
                 opportunityRepo.countByAsesorIdAndEtapaOportunidad(asesorId, StageOpportunity.CIERRE_PERDIDO)
         );

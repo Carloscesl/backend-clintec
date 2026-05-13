@@ -1,10 +1,10 @@
 package com.terreneitors.backendclintec.opportunities.domain;
 
 public enum StageOpportunity {
-    PROSPECCIÓN    (5,   20,  10),
-    CALIFICACIÓN   (21,  40,  30),
+    PROSPECCION(5,   20,  10),
+    CALIFICACION(21,  40,  30),
     PROPUESTA      (41,  60,  50),
-    NEGOCIACIÓN    (61,  85,  75),
+    NEGOCIACION (61,  85,  75),
     CIERRE_GANADO  (100, 100, 100),
     CIERRE_PERDIDO (0,   0,   0);
 
