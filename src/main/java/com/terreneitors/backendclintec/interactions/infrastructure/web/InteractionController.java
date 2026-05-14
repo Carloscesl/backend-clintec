@@ -55,7 +55,7 @@ public class InteractionController {
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE', 'ASESOR')")
     public ResponseEntity<List<InteractionResponseDTO>> porUsuario(
             @PathVariable Long usuarioId) {
         return ResponseEntity.ok(

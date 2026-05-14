@@ -11,7 +11,7 @@ public record InteractionResponseDTO(
         Long oportunidadId,
         TypeInteraction tipo,
         String nota,
-        LocalDateTime echa,
+        LocalDateTime fecha,
         LocalDateTime fechaActualizacion
 ) {
 }
