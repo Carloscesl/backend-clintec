@@ -25,6 +25,14 @@ public class AlertController {
                 useCase.findAll().stream().map(mapper::toDTO).toList());
     }
 
+    @GetMapping("/id/{id}")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE','ASESOR')")
+    public ResponseEntity<AlertResponseDTO> buscarPorId(@PathVariable Long id){
+        return useCase.buscarPorId(id)
+                .map(entity -> ResponseEntity.ok(mapper.toDTO(entity)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @GetMapping("/pendientes")
     @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE','ASESOR')")
     public ResponseEntity<List<AlertResponseDTO>> pendientes() {
@@ -40,7 +48,7 @@ public class AlertController {
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE','ASESOR')")
     public ResponseEntity<List<AlertResponseDTO>> porUsuario(@PathVariable Long usuarioId) {
         return ResponseEntity.ok(
                 useCase.buscarPorUsuario(usuarioId).stream().map(mapper::toDTO).toList());
