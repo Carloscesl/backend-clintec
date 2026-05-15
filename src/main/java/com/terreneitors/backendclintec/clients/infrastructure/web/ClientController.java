@@ -1,6 +1,6 @@
 package com.terreneitors.backendclintec.clients.infrastructure.web;
 
-import com.terreneitors.backendclintec.clients.application.service.ClientCrudService;
+import com.terreneitors.backendclintec.clients.application.port.in.ClientCrudUseCase;
 import com.terreneitors.backendclintec.clients.domain.Client;
 import com.terreneitors.backendclintec.clients.infrastructure.dto.ClientRequestDTO;
 import com.terreneitors.backendclintec.clients.infrastructure.dto.ClientResponseDTO;
@@ -19,20 +19,21 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin("http://localhost:4200")
 public class ClientController {
-    private final ClientCrudService clienteCrudService;
+
+    private final ClientCrudUseCase caseUse;
     private final ClientPersistenceMapper mapper;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
     public ResponseEntity<List<ClientResponseDTO>> list(){
-        List<ClientResponseDTO> clientes = clienteCrudService.findAll().stream().map(mapper::toDTO).toList();
+        List<ClientResponseDTO> clientes = caseUse.findAll().stream().map(mapper::toDTO).toList();
         return ResponseEntity.ok(clientes);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
     public ResponseEntity<ClientResponseDTO> findById(@PathVariable Long id){
-        return clienteCrudService.findById(id)
+        return caseUse.findById(id)
                 .map(u-> mapper.toDTO(u))
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -40,7 +41,7 @@ public class ClientController {
     @GetMapping("/email/{email}")
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
     public ResponseEntity<ClientResponseDTO> findByEmail(@PathVariable String email){
-        return clienteCrudService.findByEmail(email)
+        return caseUse.findByEmail(email)
                 .map(u-> mapper.toDTO(u))
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -49,14 +50,14 @@ public class ClientController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
     public ResponseEntity<ClientResponseDTO> create(@Valid @RequestBody ClientRequestDTO dto){
-        Client creado = clienteCrudService.createClient(dto);
+        Client creado = caseUse.createClient(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toDTO(creado));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
     public ResponseEntity<ClientResponseDTO> update(@PathVariable Long id, @Valid @RequestBody ClientRequestDTO dto){
-        Client actualizado = clienteCrudService.updateClient(id, dto);
+        Client actualizado = caseUse.updateClient(id, dto);
         return ResponseEntity.ok(mapper.toDTO(actualizado));
     }
 

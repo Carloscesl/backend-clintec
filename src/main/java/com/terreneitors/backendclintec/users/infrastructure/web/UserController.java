@@ -1,6 +1,6 @@
 package com.terreneitors.backendclintec.users.infrastructure.web;
 
-import com.terreneitors.backendclintec.users.application.service.UserCrudService;
+import com.terreneitors.backendclintec.users.application.port.in.UserCrudUseCase;
 import com.terreneitors.backendclintec.users.domain.Rol;
 import com.terreneitors.backendclintec.users.domain.User;
 import com.terreneitors.backendclintec.users.infrastructure.dto.UserRequestDTO;
@@ -22,20 +22,20 @@ import java.util.List;
 @CrossOrigin("http://localhost:4200")
 public class UserController {
 
-    private final UserCrudService userCrudService;
+    private final UserCrudUseCase userCrudUseCase;
     private final UserPersistenceMapper mapper;
 
     @GetMapping
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<UserResponseDTO>> list(){
-        List<UserResponseDTO> usuarios = userCrudService.findAll().stream().map(mapper::toDTO).toList();
+        List<UserResponseDTO> usuarios = userCrudUseCase.findAll().stream().map(mapper::toDTO).toList();
         return ResponseEntity.ok(usuarios);
     }
 
     @GetMapping("/id/{id}")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id) {
-        return userCrudService.findById(id)
+        return userCrudUseCase.findById(id)
                 .map(u -> mapper.toDTO(u))
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -43,7 +43,7 @@ public class UserController {
     @GetMapping("/email/{email}")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UserResponseDTO> findByEmail(@PathVariable String email) {
-        return userCrudService.findByEmail(email)
+        return userCrudUseCase.findByEmail(email)
                 .map(u -> mapper.toDTO(u))
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -52,47 +52,47 @@ public class UserController {
     @PostMapping
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UserResponseDTO> create(@Valid @RequestBody UserRequestDTO dto) {
-        User creado = userCrudService.createUser(dto);
+        User creado = userCrudUseCase.createUser(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toDTO(creado));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto) {
-        User actualizado = userCrudService.updateUser(id, dto);
+        User actualizado = userCrudUseCase.updateUser(id, dto);
         return ResponseEntity.ok(mapper.toDTO(actualizado));
     }
 
     @PatchMapping("/{email}/desactivar")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<Void> desactivate(@PathVariable String email) {
-        userCrudService.desactivateUser(email);
+        userCrudUseCase.desactivateUser(email);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{email}/activar")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<Void> activate(@PathVariable String email) {
-        userCrudService.activateUser(email);
+        userCrudUseCase.activateUser(email);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/total")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<Long> count(){
-        return ResponseEntity.ok(userCrudService.count());
+        return ResponseEntity.ok(userCrudUseCase.count());
     }
 
     @GetMapping("/total-por-rol/{rol}")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<Long> countByRol(@PathVariable Rol rol) {
-        return ResponseEntity.ok(userCrudService.countByRol(rol));
+        return ResponseEntity.ok(userCrudUseCase.countByRol(rol));
     }
 
     @GetMapping("/filtrar")
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
     public ResponseEntity<List<UserResponseDTO>> listByRole(@RequestParam Rol rol){
-        List<UserResponseDTO> lista = userCrudService.findAllRol(rol).stream().map(mapper::toDTO).toList();
+        List<UserResponseDTO> lista = userCrudUseCase.findAllRol(rol).stream().map(mapper::toDTO).toList();
         return ResponseEntity.ok(lista);
     }
 
