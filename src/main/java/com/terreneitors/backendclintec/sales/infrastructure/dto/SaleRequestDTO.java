@@ -18,7 +18,7 @@ public record SaleRequestDTO(
                 message = "El valor de la venta debe ser mayor a 0")
         BigDecimal valorVenta,
 
-        String notas, // ← opcional, no necesita validación
+        String notas,
 
         @NotNull(message = "El método de pago es obligatorio")
         PaymentMethod paymentMethod

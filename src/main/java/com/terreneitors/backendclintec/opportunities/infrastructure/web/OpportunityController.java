@@ -1,7 +1,6 @@
 package com.terreneitors.backendclintec.opportunities.infrastructure.web;
 
 import com.terreneitors.backendclintec.opportunities.application.port.in.OpportunityCrudUseCase;
-import com.terreneitors.backendclintec.opportunities.application.service.OpportunityCrudService;
 import com.terreneitors.backendclintec.opportunities.domain.StageOpportunity;
 import com.terreneitors.backendclintec.opportunities.domain.Opportunity;
 import com.terreneitors.backendclintec.opportunities.infrastructure.dto.OpportunityRequestDTO;
