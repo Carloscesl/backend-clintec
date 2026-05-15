@@ -7,6 +7,7 @@ import com.terreneitors.backendclintec.opportunities.domain.StatusOpportunity;
 import com.terreneitors.backendclintec.opportunities.domain.StageOpportunity;
 import com.terreneitors.backendclintec.opportunities.domain.Opportunity;
 import com.terreneitors.backendclintec.opportunities.infrastructure.dto.OpportunityRequestDTO;
+import com.terreneitors.backendclintec.qualification.infrastructure.events.EtapaCambiadaEvent;
 import com.terreneitors.backendclintec.shared.exception.BusinessException;
 import com.terreneitors.backendclintec.shared.exception.InvalidStateException;
 import com.terreneitors.backendclintec.shared.exception.ResourceNotFoundException;
@@ -14,6 +15,7 @@ import com.terreneitors.backendclintec.shared.exception.ValidationException;
 import com.terreneitors.backendclintec.users.application.port.out.UserRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +29,7 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
     private final OpportunityRepositoryPort oportunidadesRespositoryPort;
     private final ClientRepositoryPort clientRepositoryPort;
     private final UserRepositoryPort userRepositoryPort;
-
+    private final ApplicationEventPublisher publisher;
 
     @Override
     public List<Opportunity> findAll() {
@@ -132,6 +134,8 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
                     "No se puede cambiar la etapa de una oportunidad cerrada. Estado: "
                             + opportunity.getEstado());
         }
+
+        publisher.publishEvent(new EtapaCambiadaEvent(opportunity.getClienteId(), opportunity.getEtapaOportunidad(), nuevaEtapa));
         opportunity.setEtapaOportunidad(nuevaEtapa);
 
         Opportunity actualizada = oportunidadesRespositoryPort.save(opportunity);

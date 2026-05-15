@@ -8,12 +8,14 @@ import com.terreneitors.backendclintec.interactions.infrastructure.dto.Interacti
 import com.terreneitors.backendclintec.opportunities.application.port.out.OpportunityRepositoryPort;
 import com.terreneitors.backendclintec.opportunities.domain.Opportunity;
 import com.terreneitors.backendclintec.opportunities.domain.StatusOpportunity;
+import com.terreneitors.backendclintec.qualification.infrastructure.events.InteraccionCreadaEvent;
 import com.terreneitors.backendclintec.shared.exception.InvalidStateException;
 import com.terreneitors.backendclintec.shared.exception.ResourceNotFoundException;
 import com.terreneitors.backendclintec.shared.exception.ValidationException;
 import com.terreneitors.backendclintec.users.application.port.out.UserRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +29,7 @@ public class InteractionCrudService implements InteractionCrudUseCase {
     private final ClientRepositoryPort clientRepositoryPort;
     private final UserRepositoryPort userRepositoryPort;
     private final OpportunityRepositoryPort opportunityRepositoryPort;
+    private final ApplicationEventPublisher publisher;
 
     @Override
     public List<Interaction> findAll() {
@@ -96,6 +99,10 @@ public class InteractionCrudService implements InteractionCrudUseCase {
             throw new ValidationException(
                     "No se pudo registrar la interacción. Intenta de nuevo.");
         }
+
+        publisher.publishEvent(
+                new InteraccionCreadaEvent(guardada.getClienteId(), guardada.getTipo())
+        );
 
         log.info("[INTERACCION_CREADA] id={} | clienteId={} | tipo={}",
                 guardada.getId(), guardada.getClienteId(), guardada.getTipo());

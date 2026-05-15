@@ -8,9 +8,9 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "calificacion_cliente")
 @Getter
 @Setter
+@Table(name = "calificacion_cliente")
 public class QualificationEntity {
 
     @Id
