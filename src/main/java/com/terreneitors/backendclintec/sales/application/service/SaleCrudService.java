@@ -3,6 +3,7 @@ package com.terreneitors.backendclintec.sales.application.service;
 import com.terreneitors.backendclintec.opportunities.application.port.out.OpportunityRepositoryPort;
 import com.terreneitors.backendclintec.opportunities.domain.StatusOpportunity;
 import com.terreneitors.backendclintec.opportunities.domain.Opportunity;
+import com.terreneitors.backendclintec.qualification.infrastructure.events.VentaCerradaEvent;
 import com.terreneitors.backendclintec.shared.exception.BusinessException;
 import com.terreneitors.backendclintec.shared.exception.InvalidStateException;
 import com.terreneitors.backendclintec.shared.exception.ResourceNotFoundException;
@@ -12,6 +13,7 @@ import com.terreneitors.backendclintec.sales.domain.Sale;
 import com.terreneitors.backendclintec.sales.infrastructure.dto.SaleRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +26,7 @@ public class SaleCrudService implements SaleCrudUseCase {
 
     private final SaleRepositoryPort saleRepositoryPort;
     private final OpportunityRepositoryPort oportunidadesRespositoryPort;
+    private final ApplicationEventPublisher publisher;
 
     @Override
     public List<Sale> findAll() {
@@ -77,6 +80,8 @@ public class SaleCrudService implements SaleCrudUseCase {
             throw new BusinessException("ERROR_CREAR_VENTA",
                     "No se pudo registrar la venta. Intenta de nuevo.");
         }
+
+        publisher.publishEvent(new VentaCerradaEvent(guardada.getIdVenta()));
 
         log.info("[VENTA_CREADA] id={} | oportunidadId={} | valor={}",
                 guardada.getIdVenta(), guardada.getIdOportunidad(), guardada.getValorVenta());
