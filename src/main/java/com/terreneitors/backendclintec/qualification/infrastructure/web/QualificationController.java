@@ -28,7 +28,7 @@ public class QualificationController {
     private final QualificationHistoryPersistenceMapper historyMapper;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE', 'ASESOR')")
     public ResponseEntity<List<QualificationResponseDTO>> listar() {
         return ResponseEntity.ok(
                 useCase.findAll().stream().map(mapper::toDTO).toList());
@@ -53,7 +53,6 @@ public class QualificationController {
                 mapper.toDTO(useCase.updateScore(clienteId, dto.puntaje())));
     }
 
-    // GET /api/calificaciones/clasificacion/{nivel}
     @GetMapping("/clasificacion/{nivel}")
     @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
     public ResponseEntity<List<QualificationResponseDTO>> porClasificacion(
@@ -63,7 +62,6 @@ public class QualificationController {
                         .stream().map(mapper::toDTO).toList());
     }
 
-    // GET /api/calificaciones/top/{n}
     @GetMapping("/top/{n}")
     @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
     public ResponseEntity<List<QualificationResponseDTO>> topN(@PathVariable int n) {
