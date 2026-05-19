@@ -63,7 +63,7 @@ public class QualificationController {
     }
 
     @GetMapping("/top/{n}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE','ASESOR')")
     public ResponseEntity<List<QualificationResponseDTO>> topN(@PathVariable int n) {
         return ResponseEntity.ok(
                 queryUseCase.findTopN(n)
