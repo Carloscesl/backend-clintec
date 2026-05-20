@@ -78,14 +78,14 @@ public class OpportunityController {
     }
 
     @PatchMapping("/{id}/ganar")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE','ASESOR')")
     public ResponseEntity<Void> closeAsWon(@PathVariable Long id) {
         oportunidadacaseUse.closeAsWon(id);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/perder")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE','ASESOR')")
     public ResponseEntity<Void> closeAsLost(@PathVariable Long id) {
         oportunidadacaseUse.closeAsLost(id);
         return ResponseEntity.noContent().build();

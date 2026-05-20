@@ -86,4 +86,9 @@ public class OpportunityRepositoryAdapter implements OpportunityRepositoryPort {
     public BigDecimal sumValorEstimadoByEstado(StatusOpportunity estado) {
         return springOpportunityRepository.sumValorEstimadoByEstado(estado);
     }
+
+    @Override
+    public BigDecimal sumValorEstimadoByAsesorIdAndEstado(Long asesorId, StatusOpportunity estado) {
+        return springOpportunityRepository.sumValorEstimadoByAsesorIdAndEstado(asesorId,estado);
+    }
 }

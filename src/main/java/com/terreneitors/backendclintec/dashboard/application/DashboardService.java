@@ -65,7 +65,7 @@ public class DashboardService {
                 opportunityRepo.countByAsesorIdAndEstado(asesorId, StatusOpportunity.ACTIVA),
                 opportunityRepo.countByAsesorIdAndEstado(asesorId, StatusOpportunity.GANADA),
                 opportunityRepo.countByAsesorIdAndEstado(asesorId, StatusOpportunity.PERDIDA),
-                opportunityRepo.sumValorEstimadoByEstado(StatusOpportunity.GANADA),
+                opportunityRepo.sumValorEstimadoByAsesorIdAndEstado(asesorId, StatusOpportunity.GANADA),
                 alertaRepo.countByUsuarioIdAndEstado(asesorId, StateAlert.PENDIENTE),
                 opportunityRepo.countByAsesorIdAndEtapaOportunidad(asesorId, StageOpportunity.PROSPECCION),
                 opportunityRepo.countByAsesorIdAndEtapaOportunidad(asesorId, StageOpportunity.CALIFICACION),
