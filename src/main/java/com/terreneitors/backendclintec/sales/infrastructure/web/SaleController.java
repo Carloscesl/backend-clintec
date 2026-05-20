@@ -29,7 +29,7 @@ public class SaleController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE','ASESOR')")
     public ResponseEntity<SaleResponseDTO> findId(@PathVariable Long id){
         return ventaCasosUso.findId(id)
                 .map(ventaMapper::toDTO)
@@ -38,13 +38,13 @@ public class SaleController {
     }
 
     @GetMapping("/buscarasesor/{id}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE','ASESOR')")
     public ResponseEntity<List<SaleResponseDTO>> findAssessor(@PathVariable Long id){
         return ResponseEntity.ok(ventaCasosUso.findIdAssessor(id).stream().map(ventaMapper::toDTO).toList());
     }
 
     @GetMapping("/buscaroportunidad/{id}")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','GERENTE','ASESOR')")
     public ResponseEntity<List<SaleResponseDTO>> findOpportunity(@PathVariable Long id){
         return ResponseEntity.ok(ventaCasosUso.findIdOpportunity(id).stream().map(ventaMapper::toDTO).toList());
     }
