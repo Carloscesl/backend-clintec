@@ -23,5 +23,5 @@ public interface OpportunityRepositoryPort {
     Long countByAsesorIdAndEtapaOportunidad(Long asesorId, StageOpportunity etapa);
     BigDecimal sumValorEstimadoByEstado(StatusOpportunity estado);
     BigDecimal sumValorEstimadoByAsesorIdAndEstado (Long asesorId, StatusOpportunity estado);
-
+    void updateVentaId(Long idOportunidad, Long ventaId);
 }

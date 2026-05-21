@@ -50,7 +50,7 @@ public class OpportunityController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'ASESOR','GERENTE')")
     public ResponseEntity<OpportunityResponseDTO> create(@Valid @RequestBody OpportunityRequestDTO dto){
         Opportunity opportunity = oportunidadacaseUse.createOpportunities(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toDTO(opportunity));
@@ -64,14 +64,14 @@ public class OpportunityController {
     }
 
     @PatchMapping("/{id}/etapa")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR','ASESOR')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','ASESOR','GERENTE')")
     public ResponseEntity<OpportunityResponseDTO> changeStage(
             @PathVariable Long id, @RequestParam StageOpportunity etapa) {
         return ResponseEntity.ok(mapper.toDTO(oportunidadacaseUse.changeStage(id, etapa)));
     }
 
     @PatchMapping("/{id}/probabilidad")
-    @PreAuthorize("hasAnyRole('ADMINISTRADOR','ASESOR')")
+    @PreAuthorize("hasAnyRole('ADMINISTRADOR','ASESOR','GERENTE')")
     public ResponseEntity<OpportunityResponseDTO> adjustProbability(
             @PathVariable Long id, @RequestParam int probabilidad) {
         return ResponseEntity.ok(mapper.toDTO(oportunidadacaseUse.adjustProbability(id, probabilidad)));

@@ -18,11 +18,9 @@ public class SaleEntity {
     @Column(name = "id_venta")
     private Long idVenta;
 
-    // ✅ FK hacia oportunidades
     @Column(name = "id_oportunidad", nullable = false)
     private Long idOportunidad;
 
-    // ✅ FK hacia usuarios
     @Column(name = "id_asesor", nullable = false)
     private Long idAsesor;
 

@@ -1,5 +1,7 @@
 package com.terreneitors.backendclintec.opportunities.domain;
 
+import org.hibernate.sql.results.DomainResultCreationException;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,11 +15,39 @@ public class Opportunity {
     private Integer probabilidad;
     private StatusOpportunity estado;
     private StageOpportunity stageOpportunity;
+    private Long ventaId;
     private LocalDateTime fechaCreacion;
     private LocalDate fechaEstimadaCierre;
     private LocalDateTime fechaActualizacion;
 
     public Opportunity() {
+    }
+
+    public boolean tieneVenta() {
+        return this.ventaId != null;
+    }
+
+    public void asociarVenta(Long ventaId) {
+        if (this.ventaId != null) {
+            throw new DomainResultCreationException("Esta oportunidad ya tiene una venta asociada");
+        }
+        this.ventaId = ventaId;
+    }
+
+    public StageOpportunity getStageOpportunity() {
+        return stageOpportunity;
+    }
+
+    public void setStageOpportunity(StageOpportunity stageOpportunity) {
+        this.stageOpportunity = stageOpportunity;
+    }
+
+    public Long getVentaId() {
+        return ventaId;
+    }
+
+    public void setVentaId(Long ventaId) {
+        this.ventaId = ventaId;
     }
 
     public Long getIdOportunidad() {

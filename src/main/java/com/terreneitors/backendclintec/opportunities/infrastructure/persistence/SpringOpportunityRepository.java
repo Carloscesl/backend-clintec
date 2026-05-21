@@ -2,7 +2,9 @@ package com.terreneitors.backendclintec.opportunities.infrastructure.persistence
 
 import com.terreneitors.backendclintec.opportunities.domain.StageOpportunity;
 import com.terreneitors.backendclintec.opportunities.domain.StatusOpportunity;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -24,4 +26,10 @@ public interface SpringOpportunityRepository extends JpaRepository<OpportunityEn
 
     @Query("SELECT COALESCE(SUM(o.valorEstimado), 0) FROM OpportunityEntity o WHERE o.asesorId = :asesorId AND o.estado = :estado")
     BigDecimal sumValorEstimadoByAsesorIdAndEstado(@Param("asesorId") Long asesorId, @Param("estado") StatusOpportunity estado);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE OpportunityEntity o SET o.ventaId = :ventaId WHERE o.id = :idOportunidad")
+    void updateVentaId(@Param("idOportunidad") Long idOportunidad, @Param("ventaId") Long ventaId);
+
 }

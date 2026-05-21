@@ -61,10 +61,15 @@ public class SaleCrudService implements SaleCrudUseCase {
         if (opportunity.getEstado() != StatusOpportunity.GANADA) {
             log.warn("[VENTA_ESTADO_INVALIDO] oportunidadId={} | estadoActual={}",
                     dto.idOportunidad(), opportunity.getEstado());
-
             throw new InvalidStateException(
                     "Solo se puede registrar una venta sobre una oportunidad GANADA. " +
                             "Estado actual: " + opportunity.getEstado());
+        }
+
+        if (opportunity.tieneVenta()) {
+            log.warn("[VENTA_DUPLICADA] oportunidadId={}", dto.idOportunidad());
+            throw new InvalidStateException(
+                    "Ya existe una venta registrada para esta oportunidad.");
         }
 
         Sale nuevaSale = new Sale();
@@ -80,6 +85,10 @@ public class SaleCrudService implements SaleCrudUseCase {
             throw new BusinessException("ERROR_CREAR_VENTA",
                     "No se pudo registrar la venta. Intenta de nuevo.");
         }
+        
+        oportunidadesRespositoryPort.updateVentaId(opportunity.getIdOportunidad(), guardada.getIdVenta());
+        log.info("[VENTA_VINCULADA] oportunidadId={} | ventaId={}",
+                opportunity.getIdOportunidad(), guardada.getIdVenta());
 
         publisher.publishEvent(new VentaCerradaEvent(guardada.getIdVenta()));
 

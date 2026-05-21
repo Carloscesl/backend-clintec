@@ -20,6 +20,7 @@ public class OpportunityPersistenceMapper {
         o.setFechaEstimadaCierre(entity.getFechaCierreEstimada());
         o.setFechaCreacion(entity.getFechaCreacion());
         o.setFechaActualizacion(entity.getFechaActualizacion());
+        o.setVentaId(entity.getVentaId());
         return o;
     }
     public OpportunityEntity toEntity(Opportunity o){
@@ -35,6 +36,7 @@ public class OpportunityPersistenceMapper {
         entity.setFechaCierreEstimada(o.getFechaEstimadaCierre());
         entity.setFechaCreacion(o.getFechaCreacion());
         entity.setFechaActualizacion(o.getFechaActualizacion());
+        entity.setVentaId(o.getVentaId());
         return entity;
     }
     public OpportunityResponseDTO toDTO(Opportunity o) {
@@ -48,6 +50,7 @@ public class OpportunityPersistenceMapper {
                 o.getEtapaOportunidad(),
                 o.getEstado(),
                 o.esPotencial(),
+                o.getVentaId(),
                 o.getFechaEstimadaCierre(),
                 o.getFechaCreacion(),
                 o.getFechaActualizacion()

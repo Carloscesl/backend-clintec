@@ -91,4 +91,9 @@ public class OpportunityRepositoryAdapter implements OpportunityRepositoryPort {
     public BigDecimal sumValorEstimadoByAsesorIdAndEstado(Long asesorId, StatusOpportunity estado) {
         return springOpportunityRepository.sumValorEstimadoByAsesorIdAndEstado(asesorId,estado);
     }
+
+    @Override
+    public void updateVentaId(Long idOportunidad, Long ventaId) {
+        springOpportunityRepository.updateVentaId(idOportunidad, ventaId);
+    }
 }

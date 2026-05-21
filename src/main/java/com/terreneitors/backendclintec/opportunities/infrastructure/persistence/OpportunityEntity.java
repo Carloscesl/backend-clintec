@@ -44,6 +44,9 @@ public class OpportunityEntity {
     @Column(nullable = false)
     private StatusOpportunity estado;
 
+    @Column(name = "venta_id", nullable = true)
+    private Long ventaId;
+
     @Column(name = "fecha_cierre_estimada")
     private LocalDate fechaCierreEstimada;
 

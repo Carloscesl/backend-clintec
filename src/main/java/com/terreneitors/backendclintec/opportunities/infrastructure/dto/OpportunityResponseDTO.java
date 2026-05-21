@@ -17,6 +17,7 @@ public record OpportunityResponseDTO(
         StageOpportunity etapa,
         StatusOpportunity estado,
         boolean esPotencial,
+        Long ventaId,
         LocalDate fechaCierreEstimada,
         LocalDateTime fechaCreacion,
         LocalDateTime fechaActualizacion
