@@ -64,12 +64,12 @@ public class InteractionCrudService implements InteractionCrudUseCase {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Cliente", "id", dto.clienteId()));
 
-        userRepositoryPort.findById(dto.clienteId())
+        userRepositoryPort.findById(dto.usuarioId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Usuario", "id", dto.usuarioId()));
 
         Opportunity oportunidad = opportunityRepositoryPort
-                .findById(dto.clienteId())
+                .findById(dto.oportunidadId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Oportunidad", "id", dto.oportunidadId()));
 

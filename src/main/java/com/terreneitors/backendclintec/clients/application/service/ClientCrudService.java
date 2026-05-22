@@ -7,6 +7,8 @@ import com.terreneitors.backendclintec.clients.infrastructure.dto.ClientRequestD
 import com.terreneitors.backendclintec.qualification.application.port.in.QualificationCrudUseCase;
 import com.terreneitors.backendclintec.shared.exception.ResourceNotFoundException;
 import com.terreneitors.backendclintec.shared.exception.ValidationException;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,9 +40,10 @@ public class ClientCrudService implements ClientCrudUseCase {
     }
 
     @Override
+    @Transactional
     public Client createClient(ClientRequestDTO dto) {
 
-        if(clientRepositoryPort.findByEmail(dto.email()).isPresent()){
+        if (clientRepositoryPort.findByEmail(dto.email()).isPresent()) {
             log.warn("[CLIENTE_EMAIL_DUPLICADO] email={}", dto.email());
             throw new ValidationException("El correo ya está registrado: " + dto.email());
         }
@@ -54,7 +57,12 @@ public class ClientCrudService implements ClientCrudUseCase {
         Client guardado = clientRepositoryPort.save(nuevoClient);
         log.info("[CLIENTE_CREADO] id={} | email={}", guardado.getId(), guardado.getEmail());
 
-        qualificationCrudUseCase.createQualificationInitial(guardado.getId());
+        try {
+            qualificationCrudUseCase.createQualificationInitial(guardado.getId());
+        } catch (Exception e) {
+            log.error("[QUALIFICATION_ERROR] clienteId={} | error={}", guardado.getId(), e.getMessage(), e);
+            throw e; // re-lanzar para que el @Transactional haga rollback
+        }
 
         return guardado;
     }

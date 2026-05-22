@@ -1,12 +1,12 @@
 package com.terreneitors.backendclintec.qualification.application.service;
 
-import com.terreneitors.backendclintec.clients.application.port.out.ClientRepositoryPort;
+
 import com.terreneitors.backendclintec.qualification.application.port.in.QualificationCrudUseCase;
 import com.terreneitors.backendclintec.qualification.application.port.out.QualificationRepositoryPort;
+import com.terreneitors.backendclintec.qualification.domain.Qualification;
 import com.terreneitors.backendclintec.qualification.domain.QualificationClient;
 import com.terreneitors.backendclintec.shared.exception.InvalidStateException;
 import com.terreneitors.backendclintec.shared.exception.ResourceNotFoundException;
-import com.terreneitors.backendclintec.shared.exception.ValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,29 +19,23 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class QualificationCrudService implements QualificationCrudUseCase {
     private final QualificationRepositoryPort qualificationRepositoryPort;
-    private final ClientRepositoryPort clientRepositoryPort;
 
     @Override
     public QualificationClient createQualificationInitial(Long clienteId) {
         log.info("[CALIFICACION_CREAR] clienteId={}", clienteId);
-        if (clientRepositoryPort.findById(clienteId).isPresent()){
+
+        if (qualificationRepositoryPort.findByClientId(clienteId).isPresent()) {
             throw new InvalidStateException(
                     "El cliente con id " + clienteId + " ya tiene una calificación asignada.");
         }
 
         QualificationClient nuevaQualification = new QualificationClient();
-        nuevaQualification.setId(clienteId);
+        nuevaQualification.setClienteId(clienteId);
+        nuevaQualification.setPuntaje(0);
+        nuevaQualification.setClasificacion(Qualification.FRIO);
 
         QualificationClient guardada = qualificationRepositoryPort.save(nuevaQualification);
-
-        if (guardada == null || guardada.getId() == null) {
-            log.error("[CALIFICACION_CREAR_FALLIDO] clienteId={}", clienteId);
-            throw new ValidationException(
-                    "No se pudo crear la calificación para el cliente: " + clienteId);
-        }
-
-        log.info("[CALIFICACION_CREADA] id={} | clienteId={} | clasificacion={}",
-                guardada.getId(), clienteId, guardada.getClasificacion());
+        log.info("[CALIFICACION_CREADA] id={} | clienteId={}", guardada.getId(), clienteId);
 
         return guardada;
     }
