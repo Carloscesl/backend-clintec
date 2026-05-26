@@ -1,4 +1,3 @@
-// qualification/application/service/QualificationQueryService.java
 package com.terreneitors.backendclintec.qualification.application.service;
 
 import com.terreneitors.backendclintec.qualification.application.port.in.QualificationQueryUseCase;

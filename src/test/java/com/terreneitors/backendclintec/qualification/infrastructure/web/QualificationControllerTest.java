@@ -158,7 +158,7 @@ class QualificationControllerTest {
         QualificationClient client = crearClienteMock(1L, clienteId, 75, Qualification.CALIENTE);
         QualificationResponseDTO responseDTO = crearResponseDTOMock(1L, clienteId, 75, Qualification.CALIENTE);
 
-        when(useCase.updateScore(eq(clienteId), eq(75))).thenReturn(client);
+        when(useCase.updateScore(clienteId, 75)).thenReturn(client);
         when(mapper.toDTO(client)).thenReturn(responseDTO);
 
         mockMvc.perform(patch("/api/calificaciones/cliente/{clienteId}/puntaje", clienteId)

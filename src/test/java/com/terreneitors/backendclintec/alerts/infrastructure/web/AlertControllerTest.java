@@ -5,7 +5,7 @@ import com.terreneitors.backendclintec.alerts.domain.Alert;
 import com.terreneitors.backendclintec.alerts.domain.StateAlert;
 import com.terreneitors.backendclintec.alerts.domain.TypeAlert;
 import com.terreneitors.backendclintec.alerts.infrastructure.dto.AlertResponseDTO;
-import com.terreneitors.backendclintec.alerts.infrastructure.persistence.Mapper.AlertPersistenceMapper;
+import com.terreneitors.backendclintec.alerts.infrastructure.persistence.mapper.AlertPersistenceMapper;
 import com.terreneitors.backendclintec.security.JwtFilter;
 import com.terreneitors.backendclintec.security.JwtService;
 import org.junit.jupiter.api.BeforeEach;

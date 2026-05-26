@@ -7,7 +7,7 @@ import com.terreneitors.backendclintec.sales.domain.PaymentMethod;
 import com.terreneitors.backendclintec.sales.domain.Sale;
 import com.terreneitors.backendclintec.sales.infrastructure.dto.SaleRequestDTO;
 import com.terreneitors.backendclintec.sales.infrastructure.dto.SaleResponseDTO;
-import com.terreneitors.backendclintec.sales.infrastructure.persistence.Mapper.SalePersistenceMapper;
+import com.terreneitors.backendclintec.sales.infrastructure.persistence.mapper.SalePersistenceMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

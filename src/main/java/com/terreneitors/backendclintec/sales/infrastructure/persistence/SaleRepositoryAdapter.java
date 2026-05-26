@@ -2,7 +2,7 @@ package com.terreneitors.backendclintec.sales.infrastructure.persistence;
 
 import com.terreneitors.backendclintec.sales.application.port.out.SaleRepositoryPort;
 import com.terreneitors.backendclintec.sales.domain.Sale;
-import com.terreneitors.backendclintec.sales.infrastructure.persistence.Mapper.SalePersistenceMapper;
+import com.terreneitors.backendclintec.sales.infrastructure.persistence.mapper.SalePersistenceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

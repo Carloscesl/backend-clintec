@@ -1,4 +1,4 @@
-package com.terreneitors.backendclintec.alerts.infrastructure.persistence.Mapper;
+package com.terreneitors.backendclintec.alerts.infrastructure.persistence.mapper;
 
 import com.terreneitors.backendclintec.alerts.domain.Alert;
 import com.terreneitors.backendclintec.alerts.infrastructure.dto.AlertResponseDTO;

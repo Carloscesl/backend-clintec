@@ -1,4 +1,3 @@
-// qualification/infrastructure/events/QualificationEventListener.java
 package com.terreneitors.backendclintec.qualification.infrastructure.events;
 
 import com.terreneitors.backendclintec.qualification.application.service.QualificationEventService;

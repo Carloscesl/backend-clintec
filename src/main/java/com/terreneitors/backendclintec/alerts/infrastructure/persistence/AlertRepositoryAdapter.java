@@ -4,7 +4,7 @@ import com.terreneitors.backendclintec.alerts.application.port.out.AlertReposito
 import com.terreneitors.backendclintec.alerts.domain.Alert;
 import com.terreneitors.backendclintec.alerts.domain.StateAlert;
 import com.terreneitors.backendclintec.alerts.domain.TypeAlert;
-import com.terreneitors.backendclintec.alerts.infrastructure.persistence.Mapper.AlertPersistenceMapper;
+import com.terreneitors.backendclintec.alerts.infrastructure.persistence.mapper.AlertPersistenceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

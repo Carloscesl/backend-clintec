@@ -2,7 +2,7 @@ package com.terreneitors.backendclintec.alerts.infrastructure.web;
 
 import com.terreneitors.backendclintec.alerts.application.port.in.AlertCrudUseCase;
 import com.terreneitors.backendclintec.alerts.infrastructure.dto.AlertResponseDTO;
-import com.terreneitors.backendclintec.alerts.infrastructure.persistence.Mapper.AlertPersistenceMapper;
+import com.terreneitors.backendclintec.alerts.infrastructure.persistence.mapper.AlertPersistenceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

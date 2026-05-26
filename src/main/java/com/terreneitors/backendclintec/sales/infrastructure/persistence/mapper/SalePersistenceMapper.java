@@ -1,4 +1,4 @@
-package com.terreneitors.backendclintec.sales.infrastructure.persistence.Mapper;
+package com.terreneitors.backendclintec.sales.infrastructure.persistence.mapper;
 
 import com.terreneitors.backendclintec.sales.domain.Sale;
 import com.terreneitors.backendclintec.sales.infrastructure.dto.SaleResponseDTO;

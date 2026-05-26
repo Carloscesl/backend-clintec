@@ -3,7 +3,7 @@ package com.terreneitors.backendclintec.sales.infrastructure.web;
 import com.terreneitors.backendclintec.sales.application.port.in.SaleCrudUseCase;
 import com.terreneitors.backendclintec.sales.infrastructure.dto.SaleRequestDTO;
 import com.terreneitors.backendclintec.sales.infrastructure.dto.SaleResponseDTO;
-import com.terreneitors.backendclintec.sales.infrastructure.persistence.Mapper.SalePersistenceMapper;
+import com.terreneitors.backendclintec.sales.infrastructure.persistence.mapper.SalePersistenceMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
