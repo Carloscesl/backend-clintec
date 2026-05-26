@@ -46,8 +46,7 @@ class QualificationCrudServiceTest {
 
     @Test
     void createQualificationInitial() {
-        when(clientRepositoryPort.findById(1L))
-                .thenReturn(Optional.empty()); // no tiene calificación aún
+
         when(qualificationRepositoryPort.save(any(QualificationClient.class)))
                 .thenReturn(calificacionExistente);
 
@@ -55,6 +54,7 @@ class QualificationCrudServiceTest {
                 qualificationCrudService.createQualificationInitial(1L);
 
         assertThat(resultado.getId()).isEqualTo(1L);
+
         verify(qualificationRepositoryPort).save(any(QualificationClient.class));
     }
 

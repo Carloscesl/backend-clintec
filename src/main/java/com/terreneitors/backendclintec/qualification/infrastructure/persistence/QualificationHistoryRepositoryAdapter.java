@@ -3,7 +3,7 @@ package com.terreneitors.backendclintec.qualification.infrastructure.persistence
 
 import com.terreneitors.backendclintec.qualification.application.port.out.QualificationHistoryRepositoryPort;
 import com.terreneitors.backendclintec.qualification.domain.QualificationHistory;
-import com.terreneitors.backendclintec.qualification.infrastructure.persistence.Mapper.QualificationHistoryPersistenceMapper;
+import com.terreneitors.backendclintec.qualification.infrastructure.persistence.mapper.QualificationHistoryPersistenceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -40,6 +40,7 @@ public class Opportunity {
 
     public void setStageOpportunity(StageOpportunity stageOpportunity) {
         this.stageOpportunity = stageOpportunity;
+        this.probabilidad = stageOpportunity.getProbabilidadDefault();
     }
 
     public Long getVentaId() {
@@ -118,15 +119,6 @@ public class Opportunity {
                     "Para la etapa " + this.stageOpportunity +
                             " la probabilidad debe estar entre " + min + "% y " + max + "%.");
         this.probabilidad = probabilidad;
-    }
-
-    public StageOpportunity getEtapaOportunidad() {
-        return stageOpportunity;
-    }
-
-    public void setEtapaOportunidad(StageOpportunity stageOpportunity) {
-        this.stageOpportunity = stageOpportunity;
-        this.probabilidad = stageOpportunity.getProbabilidadDefault();
     }
 
     public LocalDate getFechaEstimadaCierre() {

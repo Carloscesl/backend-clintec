@@ -7,8 +7,8 @@ import com.terreneitors.backendclintec.qualification.infrastructure.dto.Qualific
 import com.terreneitors.backendclintec.qualification.infrastructure.dto.QualificationHistoryResponseDTO;
 import com.terreneitors.backendclintec.qualification.infrastructure.dto.QualificationRequestDTO;
 import com.terreneitors.backendclintec.qualification.infrastructure.dto.QualificationResponseDTO;
-import com.terreneitors.backendclintec.qualification.infrastructure.persistence.Mapper.QualificationHistoryPersistenceMapper;
-import com.terreneitors.backendclintec.qualification.infrastructure.persistence.Mapper.QualificationPersistenceMapper;
+import com.terreneitors.backendclintec.qualification.infrastructure.persistence.mapper.QualificationHistoryPersistenceMapper;
+import com.terreneitors.backendclintec.qualification.infrastructure.persistence.mapper.QualificationPersistenceMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

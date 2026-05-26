@@ -35,7 +35,7 @@ public class QualificationEventService {
                 });
 
         int anterior = calificacion.getPuntaje();
-        int nuevo    = Math.min(100, Math.max(0, anterior + delta));
+        int nuevo = (int) Math.clamp((long) anterior + delta, 0L, 100L);
 
         calificacion.setPuntaje(nuevo);
         calificacion.setUltimaActualizacion(LocalDateTime.now());

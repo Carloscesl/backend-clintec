@@ -14,7 +14,7 @@ public class OpportunityPersistenceMapper {
         o.setAsesorId(entity.getAsesorId());
         o.setDescripcion(entity.getDescripcion());
         o.setValorEstimado(entity.getValorEstimado());
-        o.setEtapaOportunidad(entity.getEtapa());                   // dispara probabilidad default
+        o.setStageOpportunity(entity.getEtapa());                   // dispara probabilidad default
         o.setProbabilidad(entity.getProbabilidad());     // sobreescribe con el valor real
         o.setEstado(entity.getEstado());
         o.setFechaEstimadaCierre(entity.getFechaCierreEstimada());
@@ -31,7 +31,7 @@ public class OpportunityPersistenceMapper {
         entity.setDescripcion(o.getDescripcion());
         entity.setValorEstimado(o.getValorEstimado());
         entity.setProbabilidad(o.getProbabilidad());
-        entity.setEtapa(o.getEtapaOportunidad());
+        entity.setEtapa(o.getStageOpportunity());
         entity.setEstado(o.getEstado());
         entity.setFechaCierreEstimada(o.getFechaEstimadaCierre());
         entity.setFechaCreacion(o.getFechaCreacion());
@@ -47,7 +47,7 @@ public class OpportunityPersistenceMapper {
                 o.getDescripcion(),
                 o.getValorEstimado(),
                 o.getProbabilidad(),
-                o.getEtapaOportunidad(),
+                o.getStageOpportunity(),
                 o.getEstado(),
                 o.esPotencial(),
                 o.getVentaId(),

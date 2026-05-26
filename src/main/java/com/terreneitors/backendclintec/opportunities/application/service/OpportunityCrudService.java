@@ -71,7 +71,7 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
         nueva.setValorEstimado(dto.valorEstimado());
         nueva.setFechaEstimadaCierre(dto.fechaCierreEstimada());
         nueva.setEstado(StatusOpportunity.ACTIVA);
-        nueva.setEtapaOportunidad(StageOpportunity.PROSPECCION);
+        nueva.setStageOpportunity(StageOpportunity.PROSPECCION);
         nueva.setProbabilidad(StageOpportunity.PROSPECCION.getProbabilidadDefault());
 
         Opportunity guardada = oportunidadesRespositoryPort.save(nueva);
@@ -84,7 +84,7 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
         }
 
         log.info("[OPORTUNIDAD_CREADA] id={} | etapa={} | probabilidad={}%",
-                guardada.getIdOportunidad(), guardada.getEtapaOportunidad(),
+                guardada.getIdOportunidad(), guardada.getStageOpportunity(),
                 guardada.getProbabilidad());
 
         return guardada;
@@ -135,13 +135,13 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
                             + opportunity.getEstado());
         }
 
-        publisher.publishEvent(new EtapaCambiadaEvent(opportunity.getClienteId(), opportunity.getEtapaOportunidad(), nuevaEtapa));
-        opportunity.setEtapaOportunidad(nuevaEtapa);
+        publisher.publishEvent(new EtapaCambiadaEvent(opportunity.getClienteId(), opportunity.getStageOpportunity(), nuevaEtapa));
+        opportunity.setStageOpportunity(nuevaEtapa);
 
         Opportunity actualizada = oportunidadesRespositoryPort.save(opportunity);
 
         log.info("[OPORTUNIDAD_ETAPA_CAMBIADA] id={} | etapa={} | probabilidad={}%",
-                id, actualizada.getEtapaOportunidad(), actualizada.getProbabilidad());
+                id, actualizada.getStageOpportunity(), actualizada.getProbabilidad());
 
         return actualizada;
     }
@@ -156,12 +156,12 @@ public class OpportunityCrudService implements OpportunityCrudUseCase {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Oportunidad al ajustar", "id", id));
 
-        int min = opportunity.getEtapaOportunidad().getMin();
-        int max = opportunity.getEtapaOportunidad().getMax();
+        int min = opportunity.getStageOpportunity().getMin();
+        int max = opportunity.getStageOpportunity().getMax();
 
         if (probabilidad < min || probabilidad > max) {
             throw new ValidationException(
-                    "Para la etapa " + opportunity.getEtapaOportunidad() +
+                    "Para la etapa " + opportunity.getStageOpportunity() +
                             " la probabilidad debe estar entre " + min + "% y " + max + "%." +
                             " Valor recibido: " + probabilidad + "%");
         }

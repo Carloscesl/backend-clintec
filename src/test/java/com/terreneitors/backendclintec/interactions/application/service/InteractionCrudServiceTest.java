@@ -17,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +41,9 @@ class InteractionCrudServiceTest {
 
     @Mock
     private OpportunityRepositoryPort opportunityRepositoryPort;
+
+    @Mock
+    private ApplicationEventPublisher publisher;
 
     @InjectMocks
     private InteractionCrudService interactionCrudService;
@@ -113,9 +117,9 @@ class InteractionCrudServiceTest {
     void createInteraction() {
         when(clientRepositoryPort.findById(10L))
                 .thenReturn(Optional.of(clienteExistente));
-        when(userRepositoryPort.findById(10L))
+        when(userRepositoryPort.findById(5L))
                 .thenReturn(Optional.of(usuarioExistente));
-        when(opportunityRepositoryPort.findById(10L))
+        when(opportunityRepositoryPort.findById(20L))
                 .thenReturn(Optional.of(oportunidadActiva));
         when(interactionRepositoryPort.save(any(Interaction.class)))
                 .thenReturn(interaccionExistente);

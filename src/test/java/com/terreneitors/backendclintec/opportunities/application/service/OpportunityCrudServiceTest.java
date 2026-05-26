@@ -55,7 +55,7 @@ class OpportunityCrudServiceTest {
         oportunidadActiva.setClienteId(10L);
         oportunidadActiva.setAsesorId(2L);
         oportunidadActiva.setEstado(StatusOpportunity.ACTIVA);
-        oportunidadActiva.setEtapaOportunidad(StageOpportunity.PROSPECCION);
+        oportunidadActiva.setStageOpportunity(StageOpportunity.PROSPECCION);
         oportunidadActiva.setValorEstimado(BigDecimal.valueOf(10000));
 
         oportunidadGanada = new Opportunity();

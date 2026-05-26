@@ -1,4 +1,4 @@
-package com.terreneitors.backendclintec.qualification.infrastructure.persistence.Mapper;
+package com.terreneitors.backendclintec.qualification.infrastructure.persistence.mapper;
 
 import com.terreneitors.backendclintec.qualification.domain.QualificationHistory;
 import com.terreneitors.backendclintec.qualification.infrastructure.dto.QualificationHistoryResponseDTO;
