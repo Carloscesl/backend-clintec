@@ -1,5 +1,6 @@
 package com.terreneitors.backendclintec.shared.exception.handler;
 
+import com.terreneitors.backendclintec.backup.domain.BackupException;
 import com.terreneitors.backendclintec.shared.exception.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +65,25 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .body(ErrorResponse.builder()
+                        .codigo(ex.getCodigo())
+                        .mensaje(ex.getMessage())
+                        .ruta(request.getRequestURI())
+                        .timestamp()
+                        .build());
+    }
+
+    // ── 500 Fallo técnico al generar/restaurar un backup ─────────
+    @ExceptionHandler(BackupException.class)
+    public ResponseEntity<ErrorResponse> handleBackup(
+            BackupException ex,
+            HttpServletRequest request) {
+
+        // ERROR + stack trace: es un fallo del servidor, no del usuario
+        log.error("[BACKUP_ERROR] {} | ruta: {}", ex.getMessage(), request.getRequestURI(), ex);
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ErrorResponse.builder()
                         .codigo(ex.getCodigo())
                         .mensaje(ex.getMessage())
